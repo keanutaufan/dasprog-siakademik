@@ -6,44 +6,48 @@
 
 #define NOT_FOUND -1
 
+/// @brief Keep tracks of user settings and length of custom data types
 typedef struct {
-    int structSize_Dosen;
-    int structSize_Mahasiswa;
-    int structSize_Matkul;
-    int structSize_PesertaKuliah;
+    int structSize_Dosen;           // Holds current array length of Dosen*
+    int structSize_Mahasiswa;       // Holds current array length of Mahasiswa*
+    int structSize_Matkul;          // Holds current array length of Matkul*
+    int structSize_PesertaKuliah;   // Holds current array length of PesertaKuliah*
 } DataSettings;
 
+/// @brief Lecturer's identity
 typedef struct {
-    char NIP[20];
-    char nama[50];
+    char NIP[20];                   // Lecturer's NIP (ID)
+    char nama[50];                  // Lecturer's name
 } Dosen;
 
+/// @brief Student's identity
 typedef struct {
-    char NRP[20];
-    char nama[50];
-    char alamat[50];
+    char NRP[20];                   // Student's NRP (ID)
+    char nama[50];                  // Student's name
+    char alamat[50];                // Student's address
 } Mahasiswa;
 
+/// @brief Course details
 typedef struct {
-    char kode[10];
-    char nama[30];
-    int sks;
+    char kode[10];                  // Course code
+    char nama[30];                  // Course name
+    int sks;                        // Course credit
 } Matkul;
 
+/// @brief Course takers and lecturers
 typedef struct {
-    Matkul *matkul;
-    Dosen *dosen;
-    Mahasiswa *peserta;
-    int uts;
-    int uas;
-    float rerata;
-    char grade;
-    char key_kode[20];
-    char key_NIP[20];
-    char key_NRP[20];
+    Matkul *matkul;                 // Pointer to course taken
+    Dosen *dosen;                   // Pointer to lecturer giving the course
+    Mahasiswa *peserta;             // Pointer to student taking the course
+    int uts;                        // Midterm exam score (0-100)
+    int uas;                        // Term exam score (0-100)
+    float rerata;                   // Average score (0-100)
+    char grade;                     // Final grade (A, AB, B, BC, C, D, E)
+    char key_kode[20];              // Course code of the course taken (course codes are always guaranteed unique)
+    char key_NIP[20];               // NIP of lecturer giving the course (NIPs are always guaranteed unique)
+    char key_NRP[20];               // NRP of student taking the course (NRPs are always guaranteed unique)
 } PesertaKuliah;
 
-// Functions related to memory
 void *initializeEmptyData(void);
 
 // Functions related to data input
