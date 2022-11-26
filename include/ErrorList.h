@@ -1,0 +1,9 @@
+#ifndef _ERROR_LIST_H
+#define _ERROR_LIST_H
+
+#define PROCCESS_SUCCESS 0
+#define ERROR_NOMEMORY 1
+#define ERROR_INVALIDMEMORY 2
+#define ERROR_NOFILE 3
+
+#endif

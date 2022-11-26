@@ -1,0 +1,230 @@
+#include <string.h>
+#include <malloc.h>
+#include "../include/Data.h"
+#include "../include/ErrorList.h"
+
+void *initializeEmptyData(void) {
+    return malloc(0);
+}
+
+
+int inputDosen(Dosen **dataDosen, DataSettings *dataSettings, const char *NIP, const char *nama) {  
+    Dosen *temp = realloc(*dataDosen, (dataSettings->structSize_Dosen + 1) * sizeof(Dosen));
+    if (temp == NULL) {
+        return ERROR_NOMEMORY;
+    }
+
+    int insertPosition = 0;
+    while (insertPosition < dataSettings->structSize_Dosen && strcmp(temp[insertPosition].NIP, NIP) < 0) {
+        insertPosition++;
+    }
+
+    if (insertPosition < dataSettings->structSize_Dosen) {  
+        memmove(temp+insertPosition+1, temp+insertPosition, (dataSettings->structSize_Dosen - insertPosition)*sizeof(Dosen));
+    }
+
+    strcpy(temp[insertPosition].NIP, NIP);
+    strcpy(temp[insertPosition].nama, nama);
+    *dataDosen = temp;
+    dataSettings->structSize_Dosen++;
+    return PROCCESS_SUCCESS;
+}
+
+int inputMahasiswa(Mahasiswa **dataMahasiswa, DataSettings *dataSettings, const char *NRP, const char *nama, const char *alamat) {
+    Mahasiswa *temp = realloc(*dataMahasiswa, (dataSettings->structSize_Mahasiswa + 1) * sizeof(Mahasiswa));
+    if (temp == NULL) {
+        return ERROR_NOMEMORY;
+    }
+
+    int insertPosition = 0;
+    while (insertPosition < dataSettings->structSize_Mahasiswa && strcmp(temp[insertPosition].NRP, NRP) < 0) {
+        insertPosition++;
+    }
+
+    if (insertPosition < dataSettings->structSize_Mahasiswa) {
+        memmove(temp+insertPosition+1, temp+insertPosition, (dataSettings->structSize_Mahasiswa - insertPosition) * sizeof(Mahasiswa));
+    }
+
+    strcpy(temp[insertPosition].NRP, NRP);
+    strcpy(temp[insertPosition].nama, nama);
+    strcpy(temp[insertPosition].alamat, alamat);
+    *dataMahasiswa = temp;
+    dataSettings->structSize_Mahasiswa++;
+    return PROCCESS_SUCCESS;
+}
+
+int inputMatkul(Matkul **dataMatkul, DataSettings *dataSettings, const char *kode, const char *nama, int sks) {
+    Matkul *temp = realloc(*dataMatkul, (dataSettings->structSize_Matkul + 1) * sizeof(Matkul));
+    if (temp == NULL) {
+        return ERROR_NOMEMORY;
+    }
+
+    int insertPosition = 0;
+    while (insertPosition < dataSettings->structSize_Matkul && strcmp(temp[insertPosition].kode, kode) < 0) {
+        insertPosition++;
+    }
+
+    if (insertPosition < dataSettings->structSize_Matkul) {
+        memmove(temp+insertPosition+1, temp+insertPosition, (dataSettings->structSize_Matkul - insertPosition) * sizeof(Matkul));
+    }
+
+    strcpy(temp[insertPosition].kode, kode);
+    strcpy(temp[insertPosition].nama, nama);
+    temp[insertPosition].sks = sks;
+    *dataMatkul = temp;
+    dataSettings->structSize_Matkul++;
+    return PROCCESS_SUCCESS;
+}
+
+int inputPesertaKuliah(PesertaKuliah **dataPesertaKuliah, DataSettings* dataSettings, Matkul *matkul, Dosen *dosen, Mahasiswa *peserta) {
+    PesertaKuliah *temp = realloc(*dataPesertaKuliah, (dataSettings->structSize_PesertaKuliah + 1) * sizeof(PesertaKuliah));
+    if (temp == NULL) {
+        return ERROR_NOMEMORY;
+    }
+
+    int insertPosition = 0;
+    // Sort by matkul->kode
+    while (insertPosition < dataSettings->structSize_PesertaKuliah && strcmp(temp[insertPosition].matkul->kode, matkul->kode) < 0) {
+        insertPosition++;
+    }
+
+    // Sort by dosen->NIP
+    while (insertPosition < dataSettings->structSize_PesertaKuliah && strcmp(temp[insertPosition].dosen->NIP, dosen->NIP) < 0) {
+        insertPosition++;
+    }
+
+    // Sort by peserta->NRP
+    while (insertPosition < dataSettings->structSize_PesertaKuliah && strcmp(temp[insertPosition].peserta->NRP, peserta->NRP) < 0) {
+        insertPosition++;
+    }
+
+    if (insertPosition < dataSettings->structSize_PesertaKuliah) {
+        memmove(temp+insertPosition+1, temp+insertPosition, (dataSettings->structSize_PesertaKuliah - insertPosition) * sizeof(PesertaKuliah));
+    }
+
+    temp[insertPosition].matkul = matkul;
+    temp[insertPosition].dosen = dosen;
+    temp[insertPosition].peserta = peserta;
+    temp[insertPosition].uts = SCORE_EMPTY;
+    temp[insertPosition].uas = SCORE_EMPTY;
+    temp[insertPosition].rerata = AVG_EMPTY;
+    temp[insertPosition].grade = 'E';
+    strcpy(temp[insertPosition].key_kode, matkul->kode);
+    strcpy(temp[insertPosition].key_NIP, dosen->NIP);
+    strcpy(temp[insertPosition].key_NRP, peserta->NRP);
+    *dataPesertaKuliah = temp;
+    dataSettings->structSize_PesertaKuliah++;
+    return PROCCESS_SUCCESS;
+}
+
+
+int searchDosen(Dosen *dataDosen, DataSettings *dataSettings, char NIP[]) {
+    int l = 0, r = dataSettings->structSize_Dosen-1, mid;
+    while (l <= r) {
+        mid = (l+r)/2;
+        if (strcmp(dataDosen[mid].NIP, NIP) < 0) {
+            l = mid+1;
+        }
+        else if (strcmp(dataDosen[mid].NIP, NIP) > 0) {
+            r = mid-1;
+        }
+        else {
+            return mid;
+        }
+    }
+
+    return NOT_FOUND;
+}
+
+int searchMahasiswa(Mahasiswa *dataMahasiswa, DataSettings *dataSettings, char NRP[]) {
+    int l = 0, r = dataSettings->structSize_Mahasiswa-1, mid;
+    while (l <= r) {
+        mid = (l+r)/2;
+        if (strcmp(dataMahasiswa[mid].NRP, NRP) < 0) {
+            l = mid+1;
+        }
+        else if (strcmp(dataMahasiswa[mid].NRP, NRP) > 0) {
+            r = mid-1;
+        }
+        else {
+            return mid;
+        }
+    }
+
+    return NOT_FOUND;
+}
+
+int searchMatkul(Matkul *dataMatkul, DataSettings *dataSettings, char kode[]) {
+    int l = 0, r = dataSettings->structSize_Matkul-1, mid;
+    while (l <= r) {
+        mid = (l+r)/2;
+        if (strcmp(dataMatkul[mid].kode, kode) < 0) {
+            l = mid+1;
+        }
+        else if (strcmp(dataMatkul[mid].kode, kode) > 0) {
+            r = mid-1;
+        } 
+        else {
+            return mid;
+        }
+    }
+
+    return NOT_FOUND;
+}
+
+
+int readjustPesertaKuliah(PesertaKuliah *dataPesertaKuliah, DataSettings *dataSettings, Matkul *dataMatkul, Dosen *dataDosen, Mahasiswa *dataPeserta) {
+    int newPosition;
+    for (int i = 0; i < dataSettings->structSize_PesertaKuliah; i++) {
+        // Fix Matkul *matkul if key_code does not match kode it points
+        if (strcmp(dataPesertaKuliah[i].key_kode, dataPesertaKuliah[i].matkul->kode) != 0) {
+            newPosition = searchMatkul(dataMatkul, dataSettings, dataPesertaKuliah[i].key_kode);
+            if (newPosition != NOT_FOUND) {
+                dataPesertaKuliah[i].matkul = &dataMatkul[newPosition];
+            }
+        }
+
+        // Fix Dosen *dosen if key_NIP does not match NIP it points
+        if (strcmp(dataPesertaKuliah[i].key_NIP, dataPesertaKuliah[i].dosen->NIP) != 0) {
+            newPosition = searchDosen(dataDosen, dataSettings, dataPesertaKuliah[i].key_NIP);
+            if (newPosition != NOT_FOUND) {
+                dataPesertaKuliah[i].dosen = &dataDosen[newPosition];
+            }
+        }
+
+        // Fix Mahasiswa *peserta if key_NRP does not match NRP it points
+        if (strcmp(dataPesertaKuliah[i].key_NRP, dataPesertaKuliah[i].peserta->NRP) != 0) {
+            newPosition = searchMahasiswa(dataPeserta, dataSettings, dataPesertaKuliah[i].key_NRP);
+            if (newPosition != NOT_FOUND) {
+                dataPesertaKuliah[i].peserta = &dataPeserta[newPosition];
+            }
+        }
+    }
+
+    return PROCCESS_SUCCESS;
+}
+
+int forceReadjustPesertaKuliah(PesertaKuliah *dataPesertaKuliah, DataSettings *dataSettings, Matkul *dataMatkul, Dosen *dataDosen, Mahasiswa *dataPeserta) {
+    int newPosition;
+    for (int i = 0; i < dataSettings->structSize_PesertaKuliah; i++) {
+        // Fix Matkul *matkul if key_code does not match kode it points
+        newPosition = searchMatkul(dataMatkul, dataSettings, dataPesertaKuliah[i].key_kode);
+        if (newPosition != NOT_FOUND) {
+            dataPesertaKuliah[i].matkul = &dataMatkul[newPosition];
+        }
+
+        // Fix Dosen *dosen if key_NIP does not match NIP it points
+        newPosition = searchDosen(dataDosen, dataSettings, dataPesertaKuliah[i].key_NIP);
+        if (newPosition != NOT_FOUND) {
+            dataPesertaKuliah[i].dosen = &dataDosen[newPosition];
+        }
+
+        // Fix Mahasiswa *peserta if key_NRP does not match NRP it points
+        newPosition = searchMahasiswa(dataPeserta, dataSettings, dataPesertaKuliah[i].key_NRP);
+        if (newPosition != NOT_FOUND) {
+            dataPesertaKuliah[i].peserta = &dataPeserta[newPosition];
+        }
+    }
+
+    return PROCCESS_SUCCESS;
+}
