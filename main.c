@@ -3,7 +3,7 @@
 #include "include/UI.h"
 #include "include/Data.h"
 #include "include/Debug.h"
-#include "Storage.h"
+#include "include/Storage.h"
 
 #include <string.h>
 
@@ -34,6 +34,17 @@ int main() {
     printf("\n");
     tabulatePesertaKuliah(dataPesertaKuliah, &dataSettings, dataMatkul, dataDosen, dataMahasiswa);
     printf("\n");
-    
+
+    deleteDosen(&dataDosen, &dataSettings, "197106161997031002");
+    tabulateDosen(dataDosen, &dataSettings);
+    printf("\n");
+
+    deleteMahasiswa(&dataMahasiswa, &dataSettings, "5025221042");
+    tabulateMahasiswa(dataMahasiswa, &dataSettings);
+    printf("\n");
+
+    deleteMatkul(&dataMatkul, &dataSettings, "KM184101");
+    tabulateMatkul(dataMatkul, &dataSettings);
+    printf("\n");
     return 0;
 } 

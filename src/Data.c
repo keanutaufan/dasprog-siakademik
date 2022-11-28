@@ -118,7 +118,7 @@ int inputPesertaKuliah(PesertaKuliah **dataPesertaKuliah, DataSettings* dataSett
 }
 
 
-int searchDosen(Dosen *dataDosen, DataSettings *dataSettings, char NIP[]) {
+int searchDosen(Dosen *dataDosen, DataSettings *dataSettings, const char *NIP) {
     int l = 0, r = dataSettings->structSize_Dosen-1, mid;
     while (l <= r) {
         mid = (l+r)/2;
@@ -136,7 +136,7 @@ int searchDosen(Dosen *dataDosen, DataSettings *dataSettings, char NIP[]) {
     return NOT_FOUND;
 }
 
-int searchMahasiswa(Mahasiswa *dataMahasiswa, DataSettings *dataSettings, char NRP[]) {
+int searchMahasiswa(Mahasiswa *dataMahasiswa, DataSettings *dataSettings, const char *NRP) {
     int l = 0, r = dataSettings->structSize_Mahasiswa-1, mid;
     while (l <= r) {
         mid = (l+r)/2;
@@ -154,7 +154,7 @@ int searchMahasiswa(Mahasiswa *dataMahasiswa, DataSettings *dataSettings, char N
     return NOT_FOUND;
 }
 
-int searchMatkul(Matkul *dataMatkul, DataSettings *dataSettings, char kode[]) {
+int searchMatkul(Matkul *dataMatkul, DataSettings *dataSettings, const char *kode) {
     int l = 0, r = dataSettings->structSize_Matkul-1, mid;
     while (l <= r) {
         mid = (l+r)/2;
@@ -170,6 +170,49 @@ int searchMatkul(Matkul *dataMatkul, DataSettings *dataSettings, char kode[]) {
     }
 
     return NOT_FOUND;
+}
+
+
+int deleteDosen(Dosen **dataDosen, DataSettings *dataSettings, const char *NIP) {
+    Dosen *temp = *dataDosen;
+    int deletePosition = searchDosen(temp, dataSettings, NIP);
+    if (deletePosition == NOT_FOUND) {
+        return NOT_FOUND;
+    }
+    
+    memmove(temp+deletePosition, temp+deletePosition+1, (dataSettings->structSize_Dosen - deletePosition - 1) * sizeof(Dosen));
+    temp = realloc(temp, (dataSettings->structSize_Dosen - 1) * sizeof(Dosen));
+    *dataDosen = temp;
+    dataSettings->structSize_Dosen--;
+    return PROCCESS_SUCCESS;
+}
+
+int deleteMahasiswa(Mahasiswa **dataMahasiswa, DataSettings *dataSettings, const char *NRP) {
+    Mahasiswa *temp = *dataMahasiswa;
+    int deletePosition = searchMahasiswa(temp, dataSettings, NRP);
+    if (deletePosition == NOT_FOUND) {
+        return NOT_FOUND;
+    }
+
+    memmove(temp+deletePosition, temp+deletePosition+1, (dataSettings->structSize_Mahasiswa - deletePosition - 1) * sizeof(Mahasiswa));
+    temp = realloc(temp, (dataSettings->structSize_Mahasiswa - 1) * sizeof(Mahasiswa));
+    *dataMahasiswa = temp;
+    dataSettings->structSize_Mahasiswa--;
+    return PROCCESS_SUCCESS;
+}
+
+int deleteMatkul(Matkul **dataMatkul, DataSettings *dataSettings, const char *kode) {
+    Matkul *temp = *dataMatkul;
+    int deletePosition = searchMatkul(temp, dataSettings, kode);
+    if (deletePosition == NOT_FOUND) {
+        return NOT_FOUND;
+    }
+
+    memmove(temp+deletePosition, temp+deletePosition+1, (dataSettings->structSize_Matkul - deletePosition - 1) * sizeof(Matkul));
+    temp = realloc(temp, (dataSettings->structSize_Matkul - 1) * sizeof(Matkul));
+    *dataMatkul = temp;
+    dataSettings->structSize_Matkul--;
+    return PROCCESS_SUCCESS;
 }
 
 

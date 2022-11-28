@@ -58,9 +58,13 @@ int inputPesertaKuliah(PesertaKuliah **dataPesertaKuliah, DataSettings* dataSett
 void inputNilai(PesertaKuliah **dataPesertaKuliah, DataSettings* dataSettings, PesertaKuliah *pesertaKuliah, int uts, int uas);
 
 // Functions related to data search
-int searchDosen(Dosen *dataDosen, DataSettings *dataSettings, char NIP[]);
-int searchMahasiswa(Mahasiswa *dataMahasiswa, DataSettings *dataSettings, char NRP[]);
-int searchMatkul(Matkul *dataMatkul, DataSettings *dataSettings, char kode[]);
+int searchDosen(Dosen *dataDosen, DataSettings *dataSettings, const char *NIP);
+int searchMahasiswa(Mahasiswa *dataMahasiswa, DataSettings *dataSettings, const char *NRP);
+int searchMatkul(Matkul *dataMatkul, DataSettings *dataSettings, const char *kode);
+
+int deleteDosen(Dosen **dataDosen, DataSettings *dataSettings, const char *NIP);
+int deleteMahasiswa(Mahasiswa **dataMahasiswa, DataSettings *dataSettings, const char *NRP);
+int deleteMatkul(Matkul **dataMatkul, DataSettings *dataSettings, const char *kode);
 
 int readjustPesertaKuliah(PesertaKuliah *dataPesertaKuliah, DataSettings *dataSettings, Matkul *dataMatkul, Dosen *dataDosen, Mahasiswa *dataPeserta);
 int forceReadjustPesertaKuliah(PesertaKuliah *dataPesertaKuliah, DataSettings *dataSettings, Matkul *dataMatkul, Dosen *dataDosen, Mahasiswa *dataPeserta);
