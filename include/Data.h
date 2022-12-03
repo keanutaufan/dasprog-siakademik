@@ -61,6 +61,7 @@ void inputNilai(PesertaKuliah **dataPesertaKuliah, DataSettings* dataSettings, P
 int searchDosen(Dosen *dataDosen, DataSettings *dataSettings, const char *NIP);
 int searchMahasiswa(Mahasiswa *dataMahasiswa, DataSettings *dataSettings, const char *NRP);
 int searchMatkul(Matkul *dataMatkul, DataSettings *dataSettings, const char *kode);
+int searchPesertaKuliah(PesertaKuliah *dataPesertaKuliah, DataSettings *dataSettings, const char *kode, const char *NIP, const char *NRP);
 
 int deleteDosen(Dosen **dataDosen, DataSettings *dataSettings, const char *NIP);
 int deleteMahasiswa(Mahasiswa **dataMahasiswa, DataSettings *dataSettings, const char *NRP);

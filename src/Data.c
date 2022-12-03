@@ -172,6 +172,74 @@ int searchMatkul(Matkul *dataMatkul, DataSettings *dataSettings, const char *kod
     return NOT_FOUND;
 }
 
+int searchPesertaKuliah(PesertaKuliah *dataPesertaKuliah, DataSettings *dataSettings, const char *kode, const char *NIP, const char *NRP) {
+    int l = 0, r = dataSettings->structSize_PesertaKuliah-1, mid, idx = -1;
+
+    // Lower bound for key_kode
+    while (l <= r) {
+        mid = (l+r)/2;
+        if (strcmp(dataPesertaKuliah[mid].key_kode, kode) < 0) {
+            l = mid+1;
+        }
+        else if (strcmp(dataPesertaKuliah[mid].key_kode, kode) > 0) {
+            r = mid-1;
+        }
+        else {
+            idx = mid;
+            break;
+        }
+    }
+    while (idx > 0 && strcmp(dataPesertaKuliah[idx-1].key_kode, kode) == 0) {
+        idx--;
+    }
+    if (idx == -1) {
+        return NOT_FOUND;
+    }
+
+    // Lower bound for key_NIP
+    l = idx, r = dataSettings->structSize_PesertaKuliah-1, idx = -1;
+    while (l <= r) {
+        mid = (l+r)/2;
+        if (strcmp(dataPesertaKuliah[mid].key_NIP, NIP) < 0) {
+            l = mid+1;
+        }
+        else if (strcmp(dataPesertaKuliah[mid].key_NIP, NIP) > 0) {
+            r = mid-1;
+        }
+        else {
+            idx = mid;
+            break;
+        }
+    }
+    while (idx > 0 && strcmp(dataPesertaKuliah[idx-1].key_NIP, NIP) == 0) {
+        idx--;
+    }
+    if (idx == -1) {
+        return NOT_FOUND;
+    }
+
+    // Exact index of key_NRP
+    l = idx, r = dataSettings->structSize_PesertaKuliah-1, idx = -1;
+    while (l <= r) {
+        mid = (l+r)/2;
+        if (strcmp(dataPesertaKuliah[mid].key_NRP, NRP) < 0) {
+            l = mid+1;
+        }
+        else if (strcmp(dataPesertaKuliah[mid].key_NRP, NRP) > 0) {
+            r = mid-1;
+        }
+        else {
+            idx = mid;
+            break;
+        }
+    }
+    if (idx == -1) {
+        return NOT_FOUND;
+    }
+    else {
+        return idx;
+    }
+}
 
 int deleteDosen(Dosen **dataDosen, DataSettings *dataSettings, const char *NIP) {
     Dosen *temp = *dataDosen;
