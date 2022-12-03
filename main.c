@@ -37,7 +37,9 @@ int main() {
 
     printf("\n");
 
-    deletePesertaKuliah(&dataPesertaKuliah, &dataSettings, "IF184101", "197205281997021001", "5025221042");    
+    int deletePos = searchPesertaKuliah(dataPesertaKuliah, &dataSettings, "IF184101", "196005271987011001", "5025221042");
+    deletePesertaKuliah(&dataPesertaKuliah, &dataSettings, deletePos);
+    printf("DEL POS:%d \n", deletePos);
     readjustPesertaKuliah(dataPesertaKuliah, &dataSettings, dataMatkul, dataDosen, dataMahasiswa);
 
     inputNilai(dataPesertaKuliah, &dataSettings, 0, 100, 50);

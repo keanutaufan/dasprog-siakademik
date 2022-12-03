@@ -146,6 +146,9 @@ int inputPesertaKuliah(PesertaKuliah **dataPesertaKuliah, DataSettings* dataSett
 }
 
 int inputNilai(PesertaKuliah *dataPesertaKuliah, DataSettings* dataSettings, int insertPosition, int uts, int uas) {
+    if (insertPosition == NOT_FOUND) {
+        return NOT_FOUND;
+    }
     if (insertPosition >= dataSettings->structSize_PesertaKuliah) {
         return ERROR_INVALIDMEMORY;
     }
@@ -280,12 +283,15 @@ int searchPesertaKuliah(PesertaKuliah *dataPesertaKuliah, DataSettings *dataSett
     }
 }
 
-int deleteDosen(Dosen **dataDosen, DataSettings *dataSettings, const char *NIP) {
-    Dosen *temp = *dataDosen;
-    int deletePosition = searchDosen(temp, dataSettings, NIP);
+int deleteDosen(Dosen **dataDosen, DataSettings *dataSettings, int deletePosition) {
     if (deletePosition == NOT_FOUND) {
         return NOT_FOUND;
     }
+    if (deletePosition >= dataSettings->structSize_Dosen) {
+        return ERROR_INVALIDMEMORY;
+    }
+
+    Dosen *temp = *dataDosen;
     
     memmove(temp+deletePosition, temp+deletePosition+1, (dataSettings->structSize_Dosen - deletePosition - 1) * sizeof(Dosen));
     temp = realloc(temp, (dataSettings->structSize_Dosen - 1) * sizeof(Dosen));
@@ -294,12 +300,15 @@ int deleteDosen(Dosen **dataDosen, DataSettings *dataSettings, const char *NIP) 
     return PROCCESS_SUCCESS;
 }
 
-int deleteMahasiswa(Mahasiswa **dataMahasiswa, DataSettings *dataSettings, const char *NRP) {
-    Mahasiswa *temp = *dataMahasiswa;
-    int deletePosition = searchMahasiswa(temp, dataSettings, NRP);
+int deleteMahasiswa(Mahasiswa **dataMahasiswa, DataSettings *dataSettings, int deletePosition) {
     if (deletePosition == NOT_FOUND) {
         return NOT_FOUND;
     }
+    if (deletePosition >= dataSettings->structSize_Mahasiswa) {
+        return ERROR_INVALIDMEMORY;
+    }
+
+    Mahasiswa *temp = *dataMahasiswa;
 
     memmove(temp+deletePosition, temp+deletePosition+1, (dataSettings->structSize_Mahasiswa - deletePosition - 1) * sizeof(Mahasiswa));
     temp = realloc(temp, (dataSettings->structSize_Mahasiswa - 1) * sizeof(Mahasiswa));
@@ -308,12 +317,15 @@ int deleteMahasiswa(Mahasiswa **dataMahasiswa, DataSettings *dataSettings, const
     return PROCCESS_SUCCESS;
 }
 
-int deleteMatkul(Matkul **dataMatkul, DataSettings *dataSettings, const char *kode) {
-    Matkul *temp = *dataMatkul;
-    int deletePosition = searchMatkul(temp, dataSettings, kode);
+int deleteMatkul(Matkul **dataMatkul, DataSettings *dataSettings, int deletePosition) {
     if (deletePosition == NOT_FOUND) {
         return NOT_FOUND;
     }
+    if (deletePosition >= dataSettings->structSize_Matkul) {
+        return ERROR_INVALIDMEMORY;
+    }
+
+    Matkul *temp = *dataMatkul;
 
     memmove(temp+deletePosition, temp+deletePosition+1, (dataSettings->structSize_Matkul - deletePosition - 1) * sizeof(Matkul));
     temp = realloc(temp, (dataSettings->structSize_Matkul - 1) * sizeof(Matkul));
@@ -322,12 +334,15 @@ int deleteMatkul(Matkul **dataMatkul, DataSettings *dataSettings, const char *ko
     return PROCCESS_SUCCESS;
 }
 
-int deletePesertaKuliah(PesertaKuliah **dataPesertaKuliah, DataSettings *dataSettings, const char *kode, const char *NIP, const char *NRP) {
-    PesertaKuliah *temp = *dataPesertaKuliah;
-    int deletePosition = searchPesertaKuliah(temp, dataSettings, kode, NIP, NRP);
+int deletePesertaKuliah(PesertaKuliah **dataPesertaKuliah, DataSettings *dataSettings, int deletePosition) {
     if (deletePosition == NOT_FOUND) {
         return NOT_FOUND;
     }
+    if (deletePosition >= dataSettings->structSize_PesertaKuliah) {
+        return ERROR_INVALIDMEMORY;
+    }
+
+    PesertaKuliah *temp = *dataPesertaKuliah;
 
     memmove(temp+deletePosition, temp+deletePosition+1, (dataSettings->structSize_PesertaKuliah - deletePosition - 1) * sizeof(PesertaKuliah));
     temp = realloc(temp, (dataSettings->structSize_PesertaKuliah - 1) * sizeof(PesertaKuliah));
@@ -346,7 +361,7 @@ int readjustPesertaKuliah(PesertaKuliah *dataPesertaKuliah, DataSettings *dataSe
                 dataPesertaKuliah[i].matkul = &dataMatkul[newPosition];
             }
             else {
-                deletePesertaKuliah(&dataPesertaKuliah, dataSettings, dataPesertaKuliah[i].key_kode, dataPesertaKuliah[i].key_NIP, dataPesertaKuliah[i].key_NRP);
+                deletePesertaKuliah(&dataPesertaKuliah, dataSettings, i);
             }
         }
 
@@ -357,7 +372,7 @@ int readjustPesertaKuliah(PesertaKuliah *dataPesertaKuliah, DataSettings *dataSe
                 dataPesertaKuliah[i].dosen = &dataDosen[newPosition];
             }
             else {
-                deletePesertaKuliah(&dataPesertaKuliah, dataSettings, dataPesertaKuliah[i].key_kode, dataPesertaKuliah[i].key_NIP, dataPesertaKuliah[i].key_NRP);
+                deletePesertaKuliah(&dataPesertaKuliah, dataSettings, i);
             }
         }
 
@@ -368,7 +383,7 @@ int readjustPesertaKuliah(PesertaKuliah *dataPesertaKuliah, DataSettings *dataSe
                 dataPesertaKuliah[i].peserta = &dataPeserta[newPosition];
             }
             else {
-                deletePesertaKuliah(&dataPesertaKuliah, dataSettings, dataPesertaKuliah[i].key_kode, dataPesertaKuliah[i].key_NIP, dataPesertaKuliah[i].key_NRP);
+                deletePesertaKuliah(&dataPesertaKuliah, dataSettings, i);
             }
         }
     }
