@@ -290,7 +290,7 @@ int deletePesertaKuliah(PesertaKuliah **dataPesertaKuliah, DataSettings *dataSet
         return NOT_FOUND;
     }
 
-    memmove(temp+deletePosition, temp+deletePosition+1, (dataSettings->structSize_PesertaKuliah - deletePosition) * sizeof(PesertaKuliah));
+    memmove(temp+deletePosition, temp+deletePosition+1, (dataSettings->structSize_PesertaKuliah - deletePosition - 1) * sizeof(PesertaKuliah));
     temp = realloc(temp, (dataSettings->structSize_PesertaKuliah - 1) * sizeof(PesertaKuliah));
     *dataPesertaKuliah = temp;
     dataSettings->structSize_PesertaKuliah--;
