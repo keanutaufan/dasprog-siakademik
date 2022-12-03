@@ -283,6 +283,19 @@ int deleteMatkul(Matkul **dataMatkul, DataSettings *dataSettings, const char *ko
     return PROCCESS_SUCCESS;
 }
 
+int deletePesertaKuliah(PesertaKuliah **dataPesertaKuliah, DataSettings *dataSettings, const char *kode, const char *NIP, const char *NRP) {
+    PesertaKuliah *temp = *dataPesertaKuliah;
+    int deletePosition = searchPesertaKuliah(temp, dataSettings, kode, NIP, NRP);
+    if (deletePosition == NOT_FOUND) {
+        return NOT_FOUND;
+    }
+
+    memmove(temp+deletePosition, temp+deletePosition+1, (dataSettings->structSize_PesertaKuliah - deletePosition) * sizeof(PesertaKuliah));
+    temp = realloc(temp, (dataSettings->structSize_PesertaKuliah - 1) * sizeof(PesertaKuliah));
+    *dataPesertaKuliah = temp;
+    dataSettings->structSize_PesertaKuliah--;
+    return PROCCESS_SUCCESS;
+}
 
 int readjustPesertaKuliah(PesertaKuliah *dataPesertaKuliah, DataSettings *dataSettings, Matkul *dataMatkul, Dosen *dataDosen, Mahasiswa *dataPeserta) {
     int newPosition;
@@ -293,6 +306,9 @@ int readjustPesertaKuliah(PesertaKuliah *dataPesertaKuliah, DataSettings *dataSe
             if (newPosition != NOT_FOUND) {
                 dataPesertaKuliah[i].matkul = &dataMatkul[newPosition];
             }
+            else {
+                deletePesertaKuliah(&dataPesertaKuliah, dataSettings, dataPesertaKuliah[i].key_kode, dataPesertaKuliah[i].key_NIP, dataPesertaKuliah[i].key_NRP);
+            }
         }
 
         // Fix Dosen *dosen if key_NIP does not match NIP it points
@@ -301,6 +317,9 @@ int readjustPesertaKuliah(PesertaKuliah *dataPesertaKuliah, DataSettings *dataSe
             if (newPosition != NOT_FOUND) {
                 dataPesertaKuliah[i].dosen = &dataDosen[newPosition];
             }
+            else {
+                deletePesertaKuliah(&dataPesertaKuliah, dataSettings, dataPesertaKuliah[i].key_kode, dataPesertaKuliah[i].key_NIP, dataPesertaKuliah[i].key_NRP);
+            }
         }
 
         // Fix Mahasiswa *peserta if key_NRP does not match NRP it points
@@ -308,6 +327,9 @@ int readjustPesertaKuliah(PesertaKuliah *dataPesertaKuliah, DataSettings *dataSe
             newPosition = searchMahasiswa(dataPeserta, dataSettings, dataPesertaKuliah[i].key_NRP);
             if (newPosition != NOT_FOUND) {
                 dataPesertaKuliah[i].peserta = &dataPeserta[newPosition];
+            }
+            else {
+                deletePesertaKuliah(&dataPesertaKuliah, dataSettings, dataPesertaKuliah[i].key_kode, dataPesertaKuliah[i].key_NIP, dataPesertaKuliah[i].key_NRP);
             }
         }
     }

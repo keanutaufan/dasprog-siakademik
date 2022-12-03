@@ -37,6 +37,12 @@ int main() {
 
     printf("\n");
 
-    printf("%d", searchPesertaKuliah(dataPesertaKuliah, &dataSettings, "IF184101", "197205281997021001", "5025221042"));
+    deletePesertaKuliah(&dataPesertaKuliah, &dataSettings, "IF184101", "197205281997021001", "5025221042");    
+    readjustPesertaKuliah(dataPesertaKuliah, &dataSettings, dataMatkul, dataDosen, dataMahasiswa);
+
+    printf("\n");
+    tabulatePesertaKuliah(dataPesertaKuliah, &dataSettings, dataMatkul, dataDosen, dataMahasiswa);
+    printf("\n");
+
     return 0;
 } 

@@ -66,6 +66,7 @@ int searchPesertaKuliah(PesertaKuliah *dataPesertaKuliah, DataSettings *dataSett
 int deleteDosen(Dosen **dataDosen, DataSettings *dataSettings, const char *NIP);
 int deleteMahasiswa(Mahasiswa **dataMahasiswa, DataSettings *dataSettings, const char *NRP);
 int deleteMatkul(Matkul **dataMatkul, DataSettings *dataSettings, const char *kode);
+int deletePesertaKuliah(PesertaKuliah **dataPesertaKuliah, DataSettings *dataSettings, const char *kode, const char *NIP, const char *NRP);
 
 int readjustPesertaKuliah(PesertaKuliah *dataPesertaKuliah, DataSettings *dataSettings, Matkul *dataMatkul, Dosen *dataDosen, Mahasiswa *dataPeserta);
 int forceReadjustPesertaKuliah(PesertaKuliah *dataPesertaKuliah, DataSettings *dataSettings, Matkul *dataMatkul, Dosen *dataDosen, Mahasiswa *dataPeserta);
