@@ -40,6 +40,8 @@ int main() {
     deletePesertaKuliah(&dataPesertaKuliah, &dataSettings, "IF184101", "197205281997021001", "5025221042");    
     readjustPesertaKuliah(dataPesertaKuliah, &dataSettings, dataMatkul, dataDosen, dataMahasiswa);
 
+    inputNilai(dataPesertaKuliah, &dataSettings, 0, 100, 50);
+
     printf("\n");
     tabulatePesertaKuliah(dataPesertaKuliah, &dataSettings, dataMatkul, dataDosen, dataMahasiswa);
     printf("\n");

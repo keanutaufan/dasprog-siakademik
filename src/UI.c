@@ -64,7 +64,7 @@ int tabulatePesertaKuliah(PesertaKuliah *dataPesertaKuliah, DataSettings *dataSe
     printf("|   KODE     |          Nama Matkul           |       NIP Dosen      |          Nama Dosen            |  NRP Mahasiswa  |         Nama Mahasiswa         |  ETS  |  EAS  |   AVG   | Grade |\n");
     printf("============================================================================================================================================================================================\n");
     for (int i = 0; i < dataSettings->structSize_PesertaKuliah; i++) {
-        fprintf(stdout, "| %-10s | %-30s | %-20s | %-30s | %-15s | %-30s | %5d | %5d | %7.2f |   %c   |\n", dataPesertaKuliah[i].matkul->kode, dataPesertaKuliah[i].matkul->nama, dataPesertaKuliah[i].dosen->NIP, dataPesertaKuliah[i].dosen->nama, dataPesertaKuliah[i].peserta->NRP, dataPesertaKuliah[i].peserta->nama, dataPesertaKuliah[i].uts, dataPesertaKuliah[i].uas, dataPesertaKuliah[i].rerata, dataPesertaKuliah[i].grade);
+        fprintf(stdout, "| %-10s | %-30s | %-20s | %-30s | %-15s | %-30s | %5d | %5d | %7.2f |   %s   |\n", dataPesertaKuliah[i].matkul->kode, dataPesertaKuliah[i].matkul->nama, dataPesertaKuliah[i].dosen->NIP, dataPesertaKuliah[i].dosen->nama, dataPesertaKuliah[i].peserta->NRP, dataPesertaKuliah[i].peserta->nama, dataPesertaKuliah[i].uts, dataPesertaKuliah[i].uas, dataPesertaKuliah[i].rerata, dataPesertaKuliah[i].grade);
     }
     printf("============================================================================================================================================================================================\n");
 

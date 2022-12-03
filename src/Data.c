@@ -8,6 +8,34 @@ void *initializeEmptyData(void) {
 }
 
 
+char *scoreToGrade(float score) {
+    if (score <= 40) {
+        return "E";
+    }
+    else if (score <= 55) {
+        return "D";
+    }
+    else if (score <= 60) {
+        return "C";
+    }
+    else if (score <= 65) {
+        return "BC";
+    }
+    else if (score <= 75) {
+        return "B";
+    }
+    else if (score <= 85) {
+        return "AB";
+    }
+    else if (score <= 100) {
+        return "A";
+    }
+    else {
+        return "NA";
+    }
+}
+
+
 int inputDosen(Dosen **dataDosen, DataSettings *dataSettings, const char *NIP, const char *nama) {  
     Dosen *temp = realloc(*dataDosen, (dataSettings->structSize_Dosen + 1) * sizeof(Dosen));
     if (temp == NULL) {
@@ -108,7 +136,7 @@ int inputPesertaKuliah(PesertaKuliah **dataPesertaKuliah, DataSettings* dataSett
     temp[insertPosition].uts = SCORE_EMPTY;
     temp[insertPosition].uas = SCORE_EMPTY;
     temp[insertPosition].rerata = AVG_EMPTY;
-    temp[insertPosition].grade = 'E';
+    strcpy(temp[insertPosition].grade, "E");
     strcpy(temp[insertPosition].key_kode, matkul->kode);
     strcpy(temp[insertPosition].key_NIP, dosen->NIP);
     strcpy(temp[insertPosition].key_NRP, peserta->NRP);
@@ -117,6 +145,17 @@ int inputPesertaKuliah(PesertaKuliah **dataPesertaKuliah, DataSettings* dataSett
     return PROCCESS_SUCCESS;
 }
 
+int inputNilai(PesertaKuliah *dataPesertaKuliah, DataSettings* dataSettings, int insertPosition, int uts, int uas) {
+    if (insertPosition >= dataSettings->structSize_PesertaKuliah) {
+        return ERROR_INVALIDMEMORY;
+    }
+
+    dataPesertaKuliah[insertPosition].uts = uts;
+    dataPesertaKuliah[insertPosition].uas = uas;
+    dataPesertaKuliah[insertPosition].rerata = (uts+uas)/2.0f;
+    strcpy(dataPesertaKuliah[insertPosition].grade, scoreToGrade(dataPesertaKuliah[insertPosition].rerata));
+    return PROCCESS_SUCCESS;
+}
 
 int searchDosen(Dosen *dataDosen, DataSettings *dataSettings, const char *NIP) {
     int l = 0, r = dataSettings->structSize_Dosen-1, mid;

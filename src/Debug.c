@@ -79,6 +79,6 @@ void printPesertaKuliah(PesertaKuliah *dataPesertaKuliah, DataSettings *dataSett
     }
 
     for (int i = 0; i < dataSettings->structSize_PesertaKuliah; i++) {
-        printf("%s %s %s %s %s %s %d %d %.2f %c\n", dataPesertaKuliah[i].matkul->kode, dataPesertaKuliah[i].matkul->nama, dataPesertaKuliah[i].dosen->NIP, dataPesertaKuliah[i].dosen->nama, dataPesertaKuliah[i].peserta->NRP, dataPesertaKuliah[i].peserta->nama, dataPesertaKuliah[i].uts, dataPesertaKuliah[i].uas, dataPesertaKuliah[i].rerata, dataPesertaKuliah[i].grade);
+        printf("%s %s %s %s %s %s %d %d %.2f %s\n", dataPesertaKuliah[i].matkul->kode, dataPesertaKuliah[i].matkul->nama, dataPesertaKuliah[i].dosen->NIP, dataPesertaKuliah[i].dosen->nama, dataPesertaKuliah[i].peserta->NRP, dataPesertaKuliah[i].peserta->nama, dataPesertaKuliah[i].uts, dataPesertaKuliah[i].uas, dataPesertaKuliah[i].rerata, dataPesertaKuliah[i].grade);
     }
 }

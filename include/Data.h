@@ -42,7 +42,7 @@ typedef struct {
     int uts;                        // Midterm exam score (0-100)
     int uas;                        // Term exam score (0-100)
     float rerata;                   // Average score (0-100)
-    char grade;                     // Final grade (A, AB, B, BC, C, D, E)
+    char grade[3];                  // Final grade (A, AB, B, BC, C, D, E)
     char key_kode[20];              // Course code of the course taken (course codes are always guaranteed unique)
     char key_NIP[20];               // NIP of lecturer giving the course (NIPs are always guaranteed unique)
     char key_NRP[20];               // NRP of student taking the course (NRPs are always guaranteed unique)
@@ -50,12 +50,14 @@ typedef struct {
 
 void *initializeEmptyData(void);
 
+char *scoreToGrade(float score);
+
 // Functions related to data input
 int inputDosen(Dosen **dataDosen, DataSettings *dataSettings, const char *NIP, const char *nama);
 int inputMahasiswa(Mahasiswa **dataMahasiswa, DataSettings *dataSettings, const char *NRP, const char *nama, const char *alamat);
 int inputMatkul(Matkul **dataMatkul, DataSettings *dataSettings, const char *kode, const char *nama, int sks);
-int inputPesertaKuliah(PesertaKuliah **dataPesertaKuliah, DataSettings* dataSettings, Matkul *matkul, Dosen *dosen, Mahasiswa *peserta);
-void inputNilai(PesertaKuliah **dataPesertaKuliah, DataSettings* dataSettings, PesertaKuliah *pesertaKuliah, int uts, int uas);
+int inputPesertaKuliah(PesertaKuliah **dataPesertaKuliah, DataSettings *dataSettings, Matkul *matkul, Dosen *dosen, Mahasiswa *peserta);
+int inputNilai(PesertaKuliah *dataPesertaKuliah, DataSettings *dataSettings, int insertPosition, int uts, int uas);
 
 // Functions related to data search
 int searchDosen(Dosen *dataDosen, DataSettings *dataSettings, const char *NIP);
