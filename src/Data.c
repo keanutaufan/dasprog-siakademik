@@ -362,6 +362,7 @@ int readjustPesertaKuliah(PesertaKuliah *dataPesertaKuliah, DataSettings *dataSe
             }
             else {
                 deletePesertaKuliah(&dataPesertaKuliah, dataSettings, i);
+                readjustPesertaKuliah(dataPesertaKuliah, dataSettings, dataMatkul, dataDosen, dataPeserta);
             }
         }
 
@@ -373,6 +374,7 @@ int readjustPesertaKuliah(PesertaKuliah *dataPesertaKuliah, DataSettings *dataSe
             }
             else {
                 deletePesertaKuliah(&dataPesertaKuliah, dataSettings, i);
+                readjustPesertaKuliah(dataPesertaKuliah, dataSettings, dataMatkul, dataDosen, dataPeserta);
             }
         }
 
@@ -384,6 +386,7 @@ int readjustPesertaKuliah(PesertaKuliah *dataPesertaKuliah, DataSettings *dataSe
             }
             else {
                 deletePesertaKuliah(&dataPesertaKuliah, dataSettings, i);
+                readjustPesertaKuliah(dataPesertaKuliah, dataSettings, dataMatkul, dataDosen, dataPeserta);
             }
         }
     }
