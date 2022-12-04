@@ -26,6 +26,8 @@ int main() {
     loadData("bin/d_pesertakuliah.dat", dataPesertaKuliah, sizeof(PesertaKuliah), dataSettings.structSize_PesertaKuliah);
     forceReadjustPesertaKuliah(dataPesertaKuliah, &dataSettings, dataMatkul, dataDosen, dataMahasiswa);
 
+    printMainMenu();
+
     tabulateDosen(dataDosen, &dataSettings);
     printf("\n");
     tabulateMahasiswa(dataMahasiswa, &dataSettings);
