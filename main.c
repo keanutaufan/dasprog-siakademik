@@ -26,38 +26,142 @@ int main() {
     loadData("bin/d_pesertakuliah.dat", dataPesertaKuliah, sizeof(PesertaKuliah), dataSettings.structSize_PesertaKuliah);
     forceReadjustPesertaKuliah(dataPesertaKuliah, &dataSettings, dataMatkul, dataDosen, dataMahasiswa);
 
-    printMainMenu();
+    int menuSelection;
+    int invalidSelection = 0;
+    while (1) {
+        clearScreen();
+        printMainMenu();
+        if (invalidSelection) {
+            setColor(COLOR_RED);
+            printf("MOHON HANYA MEMASUKKAN ANGKA YANG VALID!\n");
+            setColor(COLOR_DEFAULT);
+            invalidSelection = 0;
+        }
+        printf("Silakan pilih angka pada menu: ");
+        scanf("%d", &menuSelection);
 
-    tabulateDosen(dataDosen, &dataSettings);
-    printf("\n");
-    tabulateMahasiswa(dataMahasiswa, &dataSettings);
-    printf("\n");
-    tabulateMatkul(dataMatkul, &dataSettings);
-    printf("\n");
-    tabulatePesertaKuliah(dataPesertaKuliah, &dataSettings, dataMatkul, dataDosen, dataMahasiswa);
-    printf("\n");
+        // (1) Lihat Data Dosen
+        if (menuSelection == 1) {
 
-    printf("PES KUL: %d\n", dataSettings.structSize_PesertaKuliah);
-    printf("\n");
+        }
 
-    int deletePos = searchPesertaKuliah(dataPesertaKuliah, &dataSettings, "IF184101", "196005271987011001", "5025221002");
-    deletePesertaKuliah(&dataPesertaKuliah, &dataSettings, deletePos);
-    printf("DEL POS:%d \n", deletePos);
-    readjustPesertaKuliah(dataPesertaKuliah, &dataSettings, dataMatkul, dataDosen, dataMahasiswa);
+        // (2) Input Data Dosen
+        else if (menuSelection == 2) {
 
-    inputNilai(dataPesertaKuliah, &dataSettings, 0, 100, 50);
-    tabulatePesertaKuliah(dataPesertaKuliah, &dataSettings, dataMatkul, dataDosen, dataMahasiswa);
-    printf("\n");
+        }
 
-    deletePos = searchMahasiswa(dataMahasiswa, &dataSettings, "5025221042");
-    deleteMahasiswa(&dataMahasiswa, &dataSettings, deletePos);
-    readjustPesertaKuliah(dataPesertaKuliah, &dataSettings, dataMatkul, dataDosen, dataMahasiswa);
+        // (3) Hapus Data Dosen
+        else if (menuSelection == 3) {
 
-    printf("\n");
-    tabulatePesertaKuliah(dataPesertaKuliah, &dataSettings, dataMatkul, dataDosen, dataMahasiswa);
-    printf("\n");
+        }
 
-    printf("PES KUL: %d\n", dataSettings.structSize_PesertaKuliah);
+        // (4) Lihat Data Mahasiswa
+        else if (menuSelection == 4) {
+
+        }
+
+        // (5) Input Data Mahasiswa
+        else if (menuSelection == 5) {
+
+        }
+
+        // (6) Hapus Data Mahasiswa
+        else if (menuSelection == 6) {
+
+        }
+
+        // (7) Lihat Data Matkul
+        else if (menuSelection == 7) {
+
+        }
+
+        // (8) Input Data Matkul
+        else if (menuSelection == 8) {
+
+        }
+
+        // (9) Hapus Data Matkul
+        else if (menuSelection == 9) {
+
+        }
+
+        // (10) Lihat Data Peserta Kuliah
+        else if (menuSelection == 10) {
+
+        }
+
+        // (11) Input Data Peserta Kuliah
+        else if (menuSelection == 11) {
+
+        }
+
+        // (12) Hapus Data Peserta Kuliah
+        else if (menuSelection == 12) {
+
+        }
+
+        // (13) Input Nilai Peserta Kuliah
+        else if (menuSelection == 13) {
+
+        }
+
+        // (14) Informasi Data
+        else if (menuSelection == 14) {
+
+        }
+
+        // (15) Simpan Paksa Data
+        else if (menuSelection == 15) {
+
+        }
+
+        // (16) Informasi Perangkat Lunak
+        else if (menuSelection == 16) {
+
+        }
+
+        // (16) Keluar
+        else if (menuSelection == 17) {
+            
+        }
+
+        // Default case
+        else {
+            invalidSelection = 1;
+        }
+    }
+    
+
+    // tabulateDosen(dataDosen, &dataSettings);
+    // printf("\n");
+    // tabulateMahasiswa(dataMahasiswa, &dataSettings);
+    // printf("\n");
+    // tabulateMatkul(dataMatkul, &dataSettings);
+    // printf("\n");
+    // tabulatePesertaKuliah(dataPesertaKuliah, &dataSettings, dataMatkul, dataDosen, dataMahasiswa);
+    // printf("\n");
+
+    // printf("PES KUL: %d\n", dataSettings.structSize_PesertaKuliah);
+    // printf("\n");
+
+    // int deletePos = searchPesertaKuliah(dataPesertaKuliah, &dataSettings, "IF184101", "196005271987011001", "5025221002");
+    // deletePesertaKuliah(&dataPesertaKuliah, &dataSettings, deletePos);
+    // printf("DEL POS:%d \n", deletePos);
+    // readjustPesertaKuliah(dataPesertaKuliah, &dataSettings, dataMatkul, dataDosen, dataMahasiswa);
+
+    // inputNilai(dataPesertaKuliah, &dataSettings, 0, 100, 50);
+    // tabulatePesertaKuliah(dataPesertaKuliah, &dataSettings, dataMatkul, dataDosen, dataMahasiswa);
+    // printf("\n");
+
+    // deletePos = searchMahasiswa(dataMahasiswa, &dataSettings, "5025221042");
+    // deleteMahasiswa(&dataMahasiswa, &dataSettings, deletePos);
+    // readjustPesertaKuliah(dataPesertaKuliah, &dataSettings, dataMatkul, dataDosen, dataMahasiswa);
+
+    // printf("\n");
+    // tabulatePesertaKuliah(dataPesertaKuliah, &dataSettings, dataMatkul, dataDosen, dataMahasiswa);
+    // printf("\n");
+
+    // printf("PES KUL: %d\n", dataSettings.structSize_PesertaKuliah);
 
     return 0;
 } 

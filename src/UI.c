@@ -59,15 +59,15 @@ void printMainMenu(void) {
     printf("\n=======================================================================================\n");
     printf("|                                     MAIN MENU                                       |\n");
     printf("=======================================================================================\n\n");
-    printf("         (1) Lihat Data Dosen                (10) Lihat Data Peserta Kuliah        \n");
-    printf("         (2) Input Data Dosen                (11) Input Data Peserta Kuliah        \n");
-    printf("         (3) Hapus Data Dosen                (12) Hapus Data Peserta Kuliah        \n");
-    printf("         (4) Lihat Data Mahasiswa            (13) Input Nilai Peserta Kuliah       \n");
-    printf("         (5) Input Data Mahasiswa            (14) Informasi Data                   \n");
-    printf("         (6) Hapus Data Mahasiswa            (15) Simpan Paksa Data                \n");
-    printf("         (7) Lihat Data Matkul               (16) Informasi Perangkat Lunak        \n");
-    printf("         (8) Input Data Matkul               (17) Keluar                           \n");
-    printf("         (9) Hapus Data Matkul                                                     \n");
+    printf("         (1) Lihat Data Dosen                (10) Lihat Data Peserta Kuliah            \n");
+    printf("         (2) Input Data Dosen                (11) Input Data Peserta Kuliah            \n");
+    printf("         (3) Hapus Data Dosen                (12) Hapus Data Peserta Kuliah            \n");
+    printf("         (4) Lihat Data Mahasiswa            (13) Input Nilai Peserta Kuliah           \n");
+    printf("         (5) Input Data Mahasiswa            (14) Informasi Data                       \n");
+    printf("         (6) Hapus Data Mahasiswa            (15) Simpan Paksa Data                    \n");
+    printf("         (7) Lihat Data Matkul               (16) Informasi Perangkat Lunak            \n");
+    printf("         (8) Input Data Matkul               (17) Keluar                               \n");
+    printf("         (9) Hapus Data Matkul                                                         \n");
     printf("\n\n");
     setColor(COLOR_DEFAULT);
 }
