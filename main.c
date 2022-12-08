@@ -4,6 +4,7 @@
 #include "include/Data.h"
 #include "include/Debug.h"
 #include "include/Storage.h"
+#include "include/Scene.h"
 
 #include <string.h>
 
@@ -42,7 +43,7 @@ int main() {
 
         // (1) Lihat Data Dosen
         if (menuSelection == 1) {
-
+            sceneLihatDataDosen(dataDosen, &dataSettings);
         }
 
         // (2) Input Data Dosen
@@ -57,7 +58,7 @@ int main() {
 
         // (4) Lihat Data Mahasiswa
         else if (menuSelection == 4) {
-
+            sceneLihatDataMahasiswa(dataMahasiswa, &dataSettings);
         }
 
         // (5) Input Data Mahasiswa
@@ -72,7 +73,7 @@ int main() {
 
         // (7) Lihat Data Matkul
         else if (menuSelection == 7) {
-
+            sceneLihatDataMatkul(dataMatkul, &dataSettings);
         }
 
         // (8) Input Data Matkul
@@ -87,7 +88,7 @@ int main() {
 
         // (10) Lihat Data Peserta Kuliah
         else if (menuSelection == 10) {
-
+            sceneLihatDataPesertaKuliah(dataPesertaKuliah, &dataSettings, dataMatkul, dataDosen, dataMahasiswa);
         }
 
         // (11) Input Data Peserta Kuliah
