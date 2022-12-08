@@ -30,7 +30,6 @@ int main() {
     int menuSelection;
     int invalidSelection = 0;
     while (1) {
-        clearScreen();
         printMainMenu();
         if (invalidSelection) {
             setColor(COLOR_RED);
@@ -48,7 +47,11 @@ int main() {
 
         // (2) Input Data Dosen
         else if (menuSelection == 2) {
-
+            sceneInputDataDosen(&dataDosen, &dataSettings);
+            readjustPesertaKuliah(dataPesertaKuliah, &dataSettings, dataMatkul, dataDosen, dataMahasiswa);
+            saveSettings("bin/d_settings.dat", &dataSettings);
+            saveData("bin/d_dosen.dat", dataDosen, sizeof(Dosen), dataSettings.structSize_Dosen);
+            saveData("bin/d_pesertakuliah.dat", dataPesertaKuliah, sizeof(PesertaKuliah), dataSettings.structSize_PesertaKuliah);
         }
 
         // (3) Hapus Data Dosen
