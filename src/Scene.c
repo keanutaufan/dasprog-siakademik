@@ -198,7 +198,7 @@ int sceneInputDataDosen(Dosen **dataDosen, DataSettings *dataSettings) {
             else {
                 printf("Berikut adalah rincian data yang telah berhasil Anda modifikasi:\n");
                 printf("Nama Dosen (Baru)   : %s\n", bufferNama);
-                printf("NIP Dosen           : %s\n\n", bufferNama);
+                printf("NIP Dosen           : %s\n\n", bufferNIP);
                 printf("Sebagai catatan, NIP tidak dapat dimodifikasi!\n\n");
             }
         }
