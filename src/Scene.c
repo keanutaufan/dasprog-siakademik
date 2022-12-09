@@ -730,6 +730,7 @@ int sceneDeleteDataDosen(Dosen **dataDosen, DataSettings *dataSettings) {
 
         if (operation == 1) {
             deleteDosen(dataDosen, dataSettings, deletePosition);
+            operationCancelled = 0;
         }
         else {
             operationCancelled = 1;
@@ -746,8 +747,8 @@ int sceneDeleteDataDosen(Dosen **dataDosen, DataSettings *dataSettings) {
             printf("Anda telah membatalkan operasi penghapusan data dosen\n");
         }
         else {
-            printf("NIP Dosen       : %s\n", (*dataDosen)[deletePosition].NIP);
-            printf("Nama Dosen      : %s\n", (*dataDosen)[deletePosition].nama);
+            printf("Anda telah menghapus data dosen dengan rincian sebagai berikut:\n");
+            printf("NIP Dosen       : %s\n", bufferNIP);
             setColor(COLOR_RED);
             printf("OPERASI PENGHAPUSAN DATA YANG TELAH DILAKUKAN TIDAK DAPAT DIBATALKAN\n\n");
             setColor(COLOR_DEFAULT);
