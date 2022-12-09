@@ -7,3 +7,4 @@ int sceneLihatDataPesertaKuliah(PesertaKuliah *dataPesertaKuliah, DataSettings *
 
 int sceneInputDataDosen(Dosen **dataDosen, DataSettings *dataSettings);
 int sceneInputDataMahasiswa(Mahasiswa **dataMahasiswa, DataSettings *dataSettings);
+int sceneInputDataMatkul(Matkul **dataMatkul, DataSettings *dataSettings);

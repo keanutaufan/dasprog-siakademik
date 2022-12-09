@@ -341,3 +341,121 @@ int sceneInputDataMahasiswa(Mahasiswa **dataMahasiswa, DataSettings *dataSetting
 
     return PROCCESS_SUCCESS;
 }
+
+int sceneInputDataMatkul(Matkul **dataMatkul, DataSettings *dataSettings) {
+    int modifyPosition, operation, operationCancelled;
+    char bufferKode[10];
+    char bufferNama[30];
+    int bufferSKS;
+    while (1) {
+        clearScreen();
+        setColor(COLOR_CYAN);
+        printf("==============================================================================================================\n");
+        printf("|                                            Input Data Mata Kuliah                                          |\n");
+        printf("==============================================================================================================\n\n");
+        setColor(COLOR_DEFAULT);
+
+        fflush(stdin);
+        printf("Kode Mata Kuliah            : ");
+        fgets(bufferKode, 10, stdin);
+        // Replace \n picked by fgets with null terminator 
+        if (strlen(bufferKode) > 0) {
+            bufferKode[strlen(bufferKode)-1] = '\0';
+        }
+
+        fflush(stdin);
+        printf("Nama Mata Kuliah            : ");
+        fgets(bufferNama, 30, stdin);
+        // Replace \n picked by fgets with null terminator
+        if (strlen(bufferNama) > 0) {
+            bufferNama[strlen(bufferNama)-1] = '\0';
+        }
+        fflush(stdin);
+
+        printf("Jumlah SKS Mata Kuliah      : ");
+        scanf("%d", &bufferSKS);
+
+        clearScreen();
+        setColor(COLOR_CYAN);
+        printf("==============================================================================================================\n");
+        printf("|                                            Input Data Mata Kuliah                                          |\n");
+        printf("==============================================================================================================\n\n");
+        setColor(COLOR_DEFAULT);
+
+        modifyPosition = searchMatkul(*dataMatkul, dataSettings, bufferKode);
+        if (modifyPosition == -1) {
+            printf("Anda akan memasukkan data mata kuliah baru dengan rincian sebagai berikut:\n");
+            printf("Kode Mata Kuliah            : %s\n", bufferKode);
+            printf("Nama Mata Kuliah            : %s\n", bufferNama);
+            printf("Jumlah SKS Mata Kuliah      : %d\n\n", bufferSKS);
+        }
+        else {
+            printf("Anda akan memodifikasi data mahasiswa yang telah ada dengan rincian sebagai berikut:\n");
+            printf("Kode Mata Kuliah            : %s\n", bufferKode);
+            printf("Nama Mata Kuliah (Lama)     : %s\n", (*dataMatkul)[modifyPosition].nama);
+            printf("Nama Mata Kuliah (Baru)     : %s\n", bufferNama);
+            printf("Jumlah SKS (Lama)           : %d\n", (*dataMatkul)[modifyPosition].sks);
+            printf("Jumlah SKS (Baru)           : %d\n", bufferSKS);
+            printf("Sebagai catatan, kode mata kuliah tidak dapat dimodifikasi!\n\n");
+        }
+
+        printf("Periksa kembali data dan tekan (1) untuk melakukan input/pembaruan data\n");
+        printf("atau tekan angka selain (1) untuk membatalkan input/pembaruan data\n");
+        printf("Pilihan Anda: ");
+        scanf("%d", &operation);
+
+        if (operation == 1) {
+            if (modifyPosition == -1) {
+                inputMatkul(dataMatkul, dataSettings, bufferKode, bufferNama, bufferSKS);
+            }
+            else {
+                strcpy((*dataMatkul)[modifyPosition].nama, bufferNama);
+                (*dataMatkul)[modifyPosition].sks = bufferSKS;
+            }
+            operationCancelled = 0;
+        }
+        else {
+            operationCancelled = 1;
+        }
+
+        clearScreen();
+        setColor(COLOR_CYAN);
+        printf("==============================================================================================================\n");
+        printf("|                                            Input Data Mata Kuliah                                          |\n");
+        printf("==============================================================================================================\n\n");
+        setColor(COLOR_DEFAULT);
+
+        if (operationCancelled) {
+            printf("Anda telah membatalkan input/pembaruan data dosen\n");
+        }
+        else {
+            if (modifyPosition == -1) {
+                printf("Berikut adalah rincian data yang telah berhasil Anda input:\n");
+                printf("Kode Mata Kuliah            : %s\n", bufferKode);
+                printf("Nama Mata Kuliah            : %s\n", bufferNama);
+                printf("Jumlah SKS Mata Kuliah      : %d\n\n", bufferSKS);
+            }
+            else {
+                printf("Anda akan memodifikasi data mahasiswa yang telah ada dengan rincian sebagai berikut:\n");
+                printf("Kode Mata Kuliah            : %s\n", bufferKode);
+                printf("Nama Mata Kuliah (Baru)     : %s\n", bufferNama);
+                printf("Jumlah SKS (Baru)           : %d\n", bufferSKS);
+                printf("Sebagai catatan, kode mata kuliah tidak dapat dimodifikasi!\n\n");
+            }
+        }
+
+        printf("Silakan tekan (1) untuk melakukan input/pembaruan data lagi\n");
+        printf("atau tekan angka selain (1) untuk kembali ke menu utama\n");
+        printf("Pilihan Anda: ");
+        scanf("%d", &operation);
+
+        if (operation == 1) {
+            continue;
+        }
+        else {
+            break;
+        }
+    }
+
+    return PROCCESS_SUCCESS;
+}

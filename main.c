@@ -85,7 +85,11 @@ int main() {
 
         // (8) Input Data Matkul
         else if (menuSelection == 8) {
-
+            sceneInputDataMatkul(&dataMatkul, &dataSettings);
+            readjustPesertaKuliah(dataPesertaKuliah, &dataSettings, dataMatkul, dataDosen, dataMahasiswa);
+            saveSettings("bin/d_settings.dat", &dataSettings);
+            saveData("bin/d_matkul.dat", dataMatkul, sizeof(Matkul), dataSettings.structSize_Matkul);
+            saveData("bin/d_pesertakuliah.dat", dataPesertaKuliah, sizeof(PesertaKuliah), dataSettings.structSize_PesertaKuliah);
         }
 
         // (9) Hapus Data Matkul
