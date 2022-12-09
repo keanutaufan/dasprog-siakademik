@@ -3,6 +3,8 @@
 #include "../include/Data.h"
 #include "../include/ErrorList.h"
 
+#include <stdio.h>
+
 void *initializeEmptyData(void) {
     return malloc(0);
 }
@@ -241,20 +243,10 @@ int searchPesertaKuliah(PesertaKuliah *dataPesertaKuliah, DataSettings *dataSett
     // Lower bound for key_NIP
     l = idx, r = dataSettings->structSize_PesertaKuliah-1, idx = -1;
     while (l <= r) {
-        mid = (l+r)/2;
-        if (strcmp(dataPesertaKuliah[mid].key_NIP, NIP) < 0) {
-            l = mid+1;
+        if (strcmp(dataPesertaKuliah[l].key_NIP, NIP) == 0) {
+            idx = l;
         }
-        else if (strcmp(dataPesertaKuliah[mid].key_NIP, NIP) > 0) {
-            r = mid-1;
-        }
-        else {
-            idx = mid;
-            break;
-        }
-    }
-    while (idx > 0 && strcmp(dataPesertaKuliah[idx-1].key_NIP, NIP) == 0) {
-        idx--;
+        l++;
     }
     if (idx == -1) {
         return NOT_FOUND;
@@ -263,17 +255,10 @@ int searchPesertaKuliah(PesertaKuliah *dataPesertaKuliah, DataSettings *dataSett
     // Exact index of key_NRP
     l = idx, r = dataSettings->structSize_PesertaKuliah-1, idx = -1;
     while (l <= r) {
-        mid = (l+r)/2;
-        if (strcmp(dataPesertaKuliah[mid].key_NRP, NRP) < 0) {
-            l = mid+1;
+        if (strcmp(dataPesertaKuliah[l].key_NRP, NRP) == 0) {
+            idx = l;
         }
-        else if (strcmp(dataPesertaKuliah[mid].key_NRP, NRP) > 0) {
-            r = mid-1;
-        }
-        else {
-            idx = mid;
-            break;
-        }
+        l++;
     }
     if (idx == -1) {
         return NOT_FOUND;
