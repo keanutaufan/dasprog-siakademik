@@ -128,7 +128,9 @@ int main() {
 
         // (13) Input Nilai Peserta Kuliah
         else if (menuSelection == 13) {
-
+            sceneInputNilaiPesertaKuliah(&dataPesertaKuliah, &dataSettings, dataMatkul, dataDosen, dataMahasiswa);
+            saveSettings("bin/d_settings.dat", &dataSettings);
+            saveData("bin/d_pesertakuliah.dat", dataPesertaKuliah, sizeof(PesertaKuliah), dataSettings.structSize_PesertaKuliah);            
         }
 
         // (14) Informasi Data
