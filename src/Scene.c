@@ -597,8 +597,10 @@ int sceneInputDataPesertaKuliah(PesertaKuliah **dataPesertaKuliah, DataSettings 
                 printf("Nilai Rata-Rata         : Belum diinput\n");
             }
             else {
-                printf("Nilai Rata-Rata         : %.2f\n\n", (*dataPesertaKuliah)[modifyPosition].rerata);
+                printf("Nilai Rata-Rata         : %.2f\n", (*dataPesertaKuliah)[modifyPosition].rerata);
             }
+
+            printf("Grade                   : %s\n\n", (*dataPesertaKuliah)[modifyPosition].grade);
 
             setColor(COLOR_RED);
             printf("Menu ini hanya digunakan untuk mendaftarkan peserta kuliah baru.\n");
