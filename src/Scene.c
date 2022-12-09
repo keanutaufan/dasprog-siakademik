@@ -667,3 +667,104 @@ int sceneInputDataPesertaKuliah(PesertaKuliah **dataPesertaKuliah, DataSettings 
 
     return PROCCESS_SUCCESS;
 }
+
+
+int sceneDeleteDataDosen(Dosen **dataDosen, DataSettings *dataSettings) {
+    int deletePosition, operation, operationCancelled;
+    char bufferNIP[20];
+    while (1) {
+        clearScreen();
+        setColor(COLOR_CYAN);
+        printf("==============================================================================================================\n");
+        printf("|                                              Hapus Data Dosen                                              |\n");
+        printf("==============================================================================================================\n\n");
+        setColor(COLOR_DEFAULT);
+
+        fflush(stdin);
+        printf("NIP Dosen       : ");
+        fgets(bufferNIP, 20, stdin);
+        // Replace \n picked by fgets with null terminator
+        if (strlen(bufferNIP) > 0) {
+            bufferNIP[strlen(bufferNIP)-1] = '\0';
+        }
+        fflush(stdin);
+
+        clearScreen();
+        setColor(COLOR_CYAN);
+        printf("==============================================================================================================\n");
+        printf("|                                              Hapus Data Dosen                                              |\n");
+        printf("==============================================================================================================\n\n");
+        setColor(COLOR_DEFAULT);
+
+        deletePosition = searchDosen(*dataDosen, dataSettings, bufferNIP);
+        if (deletePosition == NOT_FOUND) {
+            setColor(COLOR_RED);
+            printf("GAGAL!\n");
+            printf("Dosen dengan NIP %s tidak ditemukan di sistem.\n\n", bufferNIP);
+            setColor(COLOR_DEFAULT);
+            
+            printf("Periksa kembali data Anda dan tekan (1) untuk mencoba ulang\n");
+            printf("atau tekan selain (1) untuk kembali ke menu awal\n");
+            printf("Pilihan Anda: ");
+            scanf("%d", &operation);
+            if (operation == 1) {
+                continue;
+            }
+            else {
+                break;
+            }
+        }
+        else {
+            printf("Anda akan menghapus data dosen dengan rincian sebagai berikut:\n");
+            printf("NIP Dosen       : %s\n", (*dataDosen)[deletePosition].NIP);
+            printf("Nama Dosen      : %s\n", (*dataDosen)[deletePosition].nama);
+            setColor(COLOR_RED);
+            printf("OPERASI PENGHAPUSAN DATA YANG TELAH DILAKUKAN TIDAK DAPAT DIBATALKAN\n\n");
+            setColor(COLOR_DEFAULT);
+        }
+
+        printf("Periksa kembali data dan tekan (1) untuk melakukan penghapusan data\n");
+        printf("atau tekan angka selain (1) untuk membatalkan penghapusan data\n");
+        printf("Pilihan Anda: ");
+        scanf("%d", &operation);
+
+        if (operation == 1) {
+            deleteDosen(dataDosen, dataSettings, deletePosition);
+        }
+        else {
+            operationCancelled = 1;
+        }
+
+        clearScreen();
+        setColor(COLOR_CYAN);
+        printf("==============================================================================================================\n");
+        printf("|                                              Hapus Data Dosen                                              |\n");
+        printf("==============================================================================================================\n\n");
+        setColor(COLOR_DEFAULT);
+
+        if (operationCancelled) {
+            printf("Anda telah membatalkan operasi penghapusan data dosen\n");
+        }
+        else {
+            printf("NIP Dosen       : %s\n", (*dataDosen)[deletePosition].NIP);
+            printf("Nama Dosen      : %s\n", (*dataDosen)[deletePosition].nama);
+            setColor(COLOR_RED);
+            printf("OPERASI PENGHAPUSAN DATA YANG TELAH DILAKUKAN TIDAK DAPAT DIBATALKAN\n\n");
+            setColor(COLOR_DEFAULT);
+        }
+
+        printf("Silakan tekan (1) untuk melakukan penghapusan data lagi\n");
+        printf("atau tekan angka selain (1) untuk kembali ke menu utama\n");
+        printf("Pilihan Anda: ");
+        scanf("%d", &operation);
+
+        if (operation == 1) {
+            continue;
+        }
+        else {
+            break;
+        }
+    }
+
+    return PROCCESS_SUCCESS;
+}

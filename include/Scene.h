@@ -9,3 +9,5 @@ int sceneInputDataDosen(Dosen **dataDosen, DataSettings *dataSettings);
 int sceneInputDataMahasiswa(Mahasiswa **dataMahasiswa, DataSettings *dataSettings);
 int sceneInputDataMatkul(Matkul **dataMatkul, DataSettings *dataSettings);
 int sceneInputDataPesertaKuliah(PesertaKuliah **dataPesertaKuliah, DataSettings *dataSettings, Matkul *matkul, Dosen *dosen, Mahasiswa *peserta);
+
+int sceneDeleteDataDosen(Dosen **dataDosen, DataSettings *dataSettings);

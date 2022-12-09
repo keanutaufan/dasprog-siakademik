@@ -56,7 +56,11 @@ int main() {
 
         // (3) Hapus Data Dosen
         else if (menuSelection == 3) {
-
+            sceneDeleteDataDosen(&dataDosen, &dataSettings);
+            readjustPesertaKuliah(dataPesertaKuliah, &dataSettings, dataMatkul, dataDosen, dataMahasiswa);
+            saveSettings("bin/d_settings.dat", &dataSettings);
+            saveData("bin/d_dosen.dat", dataDosen, sizeof(Dosen), dataSettings.structSize_Dosen);
+            saveData("bin/d_pesertakuliah.dat", dataPesertaKuliah, sizeof(PesertaKuliah), dataSettings.structSize_PesertaKuliah);
         }
 
         // (4) Lihat Data Mahasiswa
