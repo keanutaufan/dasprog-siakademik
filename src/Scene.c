@@ -594,10 +594,10 @@ int sceneInputDataPesertaKuliah(PesertaKuliah **dataPesertaKuliah, DataSettings 
             }
 
             if ((*dataPesertaKuliah[modifyPosition]).rerata == AVG_EMPTY) {
-                printf("Nilai UAS               : Belum diinput\n");
+                printf("Nilai Rata-Rata         : Belum diinput\n");
             }
             else {
-                printf("Nilai UAS               : %.2f\n\n", (*dataPesertaKuliah)[modifyPosition].rerata);
+                printf("Nilai Rata-Rata         : %.2f\n\n", (*dataPesertaKuliah)[modifyPosition].rerata);
             }
 
             setColor(COLOR_RED);
