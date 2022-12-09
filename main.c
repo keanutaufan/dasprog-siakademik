@@ -102,7 +102,11 @@ int main() {
 
         // (9) Hapus Data Matkul
         else if (menuSelection == 9) {
-
+            sceneDeleteDataMatkul(&dataMatkul, &dataSettings);
+            readjustPesertaKuliah(dataPesertaKuliah, &dataSettings, dataMatkul, dataDosen, dataMahasiswa);
+            saveSettings("bin/d_settings.dat", &dataSettings);
+            saveData("bin/d_matkul.dat", dataMatkul, sizeof(Matkul), dataSettings.structSize_Matkul);
+            saveData("bin/d_pesertakuliah.dat", dataPesertaKuliah, sizeof(PesertaKuliah), dataSettings.structSize_PesertaKuliah);
         }
 
         // (10) Lihat Data Peserta Kuliah

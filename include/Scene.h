@@ -12,3 +12,4 @@ int sceneInputDataPesertaKuliah(PesertaKuliah **dataPesertaKuliah, DataSettings 
 
 int sceneDeleteDataDosen(Dosen **dataDosen, DataSettings *dataSettings);
 int sceneDeleteDataMahasiswa(Mahasiswa **dataMahasiswa, DataSettings *dataSettings);
+int sceneDeleteDataMatkul(Matkul **dataMatkul, DataSettings *dataSettings);
