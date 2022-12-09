@@ -638,7 +638,7 @@ int sceneInputDataPesertaKuliah(PesertaKuliah **dataPesertaKuliah, DataSettings 
         setColor(COLOR_DEFAULT);
 
         if (operationCancelled) {
-            printf("Anda telah membatalkan input/pembaruan data dosen\n");
+            printf("Anda telah membatalkan input data peserta kuliah\n");
         }
         else {
             printf("Berikut adalah rincian data yang telah berhasil Anda input:\n");
