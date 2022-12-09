@@ -117,12 +117,12 @@ int inputPesertaKuliah(PesertaKuliah **dataPesertaKuliah, DataSettings* dataSett
     }
 
     // Sort by dosen->NIP
-    while (insertPosition < dataSettings->structSize_PesertaKuliah && strcmp(temp[insertPosition].dosen->NIP, dosen->NIP) < 0) {
+    while (insertPosition < dataSettings->structSize_PesertaKuliah && strcmp(temp[insertPosition].matkul->kode, matkul->kode) == 0 && strcmp(temp[insertPosition].dosen->NIP, dosen->NIP) < 0) {
         insertPosition++;
     }
 
     // Sort by peserta->NRP
-    while (insertPosition < dataSettings->structSize_PesertaKuliah && strcmp(temp[insertPosition].peserta->NRP, peserta->NRP) < 0) {
+    while (insertPosition < dataSettings->structSize_PesertaKuliah && strcmp(temp[insertPosition].dosen->NIP, dosen->NIP) == 0 && strcmp(temp[insertPosition].peserta->NRP, peserta->NRP) < 0) {
         insertPosition++;
     }
 
