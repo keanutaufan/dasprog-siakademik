@@ -610,10 +610,10 @@ int sceneInputDataPesertaKuliah(PesertaKuliah **dataPesertaKuliah, DataSettings 
             printf("Pilihan Anda: ");
             scanf("%d", &operation);
             if (operation == 1) {
-                break;
+                continue;
             }
             else {
-                continue;
+                break;
             }
         }
 
