@@ -66,7 +66,11 @@ int main() {
 
         // (5) Input Data Mahasiswa
         else if (menuSelection == 5) {
-
+            sceneInputDataMahasiswa(&dataMahasiswa, &dataSettings);
+            readjustPesertaKuliah(dataPesertaKuliah, &dataSettings, dataMatkul, dataDosen, dataMahasiswa);
+            saveSettings("bin/d_settings.dat", &dataSettings);
+            saveData("bin/d_mahasiswa.dat", dataMahasiswa, sizeof(Mahasiswa), dataSettings.structSize_Mahasiswa);
+            saveData("bin/d_pesertakuliah.dat", dataPesertaKuliah, sizeof(PesertaKuliah), dataSettings.structSize_PesertaKuliah);
         }
 
         // (6) Hapus Data Mahasiswa
