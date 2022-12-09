@@ -769,3 +769,106 @@ int sceneDeleteDataDosen(Dosen **dataDosen, DataSettings *dataSettings) {
 
     return PROCCESS_SUCCESS;
 }
+
+int sceneDeleteDataMahasiswa(Mahasiswa **dataMahasiswa, DataSettings *dataSettings) {
+    int deletePosition, operation, operationCancelled;
+    char bufferNRP[20];
+    while (1) {
+        clearScreen();
+        setColor(COLOR_CYAN);
+        printf("==============================================================================================================\n");
+        printf("|                                            Hapus Data Mahasiswa                                            |\n");
+        printf("==============================================================================================================\n\n");
+        setColor(COLOR_DEFAULT);
+
+        fflush(stdin);
+        printf("NRP Mahasiswa       : ");
+        fgets(bufferNRP, 20, stdin);
+        // Replace \n picked by fgets with null terminator
+        if (strlen(bufferNRP) > 0) {
+            bufferNRP[strlen(bufferNRP)-1] = '\0';
+        }
+        fflush(stdin);
+
+        clearScreen();
+        setColor(COLOR_CYAN);
+        printf("==============================================================================================================\n");
+        printf("|                                            Hapus Data Mahasiswa                                            |\n");
+        printf("==============================================================================================================\n\n");
+        setColor(COLOR_DEFAULT);
+
+        deletePosition = searchMahasiswa(*dataMahasiswa, dataSettings, bufferNRP);
+        if (deletePosition == NOT_FOUND) {
+            setColor(COLOR_RED);
+            printf("GAGAL!\n");
+            printf("Mahasiswa dengan NRP %s tidak ditemukan di sistem.\n\n", bufferNRP);
+            setColor(COLOR_DEFAULT);
+            
+            printf("Periksa kembali data Anda dan tekan (1) untuk mencoba ulang\n");
+            printf("atau tekan selain (1) untuk kembali ke menu awal\n");
+            printf("Pilihan Anda: ");
+            scanf("%d", &operation);
+            if (operation == 1) {
+                continue;
+            }
+            else {
+                break;
+            }
+        }
+        else {
+            printf("Anda akan menghapus data mahasiswa dengan rincian sebagai berikut:\n");
+            printf("NRP Mahasiswa       : %s\n", (*dataMahasiswa)[deletePosition].NRP);
+            printf("Nama Mahasiswa      : %s\n", (*dataMahasiswa)[deletePosition].nama);
+            printf("Alamat Mahasiswa    : %s\n", (*dataMahasiswa)[deletePosition].alamat);
+            setColor(COLOR_RED);
+            printf("OPERASI PENGHAPUSAN DATA YANG TELAH DILAKUKAN TIDAK DAPAT DIBATALKAN\n\n");
+            setColor(COLOR_DEFAULT);
+        }
+
+        printf("Periksa kembali data dan tekan (1) untuk melakukan penghapusan data\n");
+        printf("atau tekan angka selain (1) untuk membatalkan penghapusan data\n");
+        printf("Pilihan Anda: ");
+        scanf("%d", &operation);
+
+        if (operation == 1) {
+            deleteMahasiswa(dataMahasiswa, dataSettings, deletePosition);
+            operationCancelled = 0;
+        }
+        else {
+            operationCancelled = 1;
+        }
+
+        clearScreen();
+        setColor(COLOR_CYAN);
+        printf("==============================================================================================================\n");
+        printf("|                                            Hapus Data Mahasiswa                                            |\n");
+        printf("==============================================================================================================\n\n");
+        setColor(COLOR_DEFAULT);
+
+        if (operationCancelled) {
+            printf("Anda telah membatalkan operasi penghapusan data mahasiswa\n");
+        }
+        else {
+            printf("Anda telah menghapus data mahasiswa dengan rincian sebagai berikut:\n");
+            printf("NRP Mahasiswa       : %s\n", bufferNRP);
+            setColor(COLOR_RED);
+            printf("OPERASI PENGHAPUSAN DATA YANG TELAH DILAKUKAN TIDAK DAPAT DIBATALKAN\n\n");
+            setColor(COLOR_DEFAULT);
+
+        }
+
+        printf("Silakan tekan (1) untuk melakukan penghapusan data lagi\n");
+        printf("atau tekan angka selain (1) untuk kembali ke menu utama\n");
+        printf("Pilihan Anda: ");
+        scanf("%d", &operation);
+
+        if (operation == 1) {
+            continue;
+        }
+        else {
+            break;
+        }
+    }
+
+    return PROCCESS_SUCCESS;
+}
