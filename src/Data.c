@@ -3,8 +3,6 @@
 #include "../include/Data.h"
 #include "../include/ErrorList.h"
 
-#include <stdio.h>
-
 void *initializeEmptyData(void) {
     return malloc(0);
 }
@@ -242,7 +240,7 @@ int searchPesertaKuliah(PesertaKuliah *dataPesertaKuliah, DataSettings *dataSett
 
     // Lower bound for key_NIP
     l = idx, r = dataSettings->structSize_PesertaKuliah-1, idx = -1;
-    while (l <= r) {
+    while (l <= r && strcmp(dataPesertaKuliah[l].key_kode, kode) == 0) {
         if (strcmp(dataPesertaKuliah[l].key_NIP, NIP) == 0) {
             idx = l;
         }
@@ -254,7 +252,7 @@ int searchPesertaKuliah(PesertaKuliah *dataPesertaKuliah, DataSettings *dataSett
 
     // Exact index of key_NRP
     l = idx, r = dataSettings->structSize_PesertaKuliah-1, idx = -1;
-    while (l <= r) {
+    while (l <= r && strcmp(dataPesertaKuliah[l].key_NIP, NIP) == 0) {
         if (strcmp(dataPesertaKuliah[l].key_NRP, NRP) == 0) {
             idx = l;
         }
