@@ -158,7 +158,7 @@ int main() {
 
         // (16) Keluar
         else if (menuSelection == 17) {
-            if (exitApp() == PROCCESS_SUCCESS) {
+            if (sceneExitApp() == PROCCESS_SUCCESS) {
                 clearScreen();
                 printf("Terima kasih telah menggunakan aplikasi sistem informasi akademik!\n");
                 break;

@@ -1451,7 +1451,7 @@ int sceneSimpanPaksaData(DataSettings *dataSettings) {
     return PROCCESS_SUCCESS;
 }
 
-int exitApp(void) {
+int sceneExitApp(void) {
     int operation = 0, invalidSelection = 0;
     while (1) {
         clearScreen();
@@ -1462,7 +1462,7 @@ int exitApp(void) {
         setColor(COLOR_DEFAULT);
 
         printf("Yakin ingin keluar aplikasi?\n");
-        
+
         if (invalidSelection) {
             setColor(COLOR_RED);
             printf("MOHON HANYA MEMASUKKAN ANGKA YANG VALID!\n");
