@@ -16,7 +16,13 @@ int main() {
     Matkul *dataMatkul = initializeEmptyData();
     PesertaKuliah *dataPesertaKuliah = initializeEmptyData();
 
-    loadSettings("bin/d_settings.dat", &dataSettings);
+    if (loadSettings("bin/d_settings.dat", &dataSettings) == ERROR_NOFILE) {
+        dataSettings.structSize_Dosen = 0;
+        dataSettings.structSize_Mahasiswa = 0;
+        dataSettings.structSize_Matkul = 0;
+        dataSettings.structSize_PesertaKuliah = 0;
+    }
+
     dataDosen = realloc(dataDosen, dataSettings.structSize_Dosen * sizeof(Dosen));
     dataMahasiswa = realloc(dataMahasiswa, dataSettings.structSize_Mahasiswa * sizeof(Mahasiswa));
     dataMatkul = realloc(dataMatkul, dataSettings.structSize_Matkul * sizeof(Matkul));
