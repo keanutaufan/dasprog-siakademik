@@ -1426,3 +1426,27 @@ int sceneInformasiData(DataSettings *dataSettings) {
     
     return PROCCESS_SUCCESS;
 }
+
+int sceneSimpanPaksaData(DataSettings *dataSettings) {
+    int operation = 0;
+    while (operation != 1) {
+        clearScreen();
+        setColor(COLOR_CYAN);
+        printf("==============================================================================================================\n");
+        printf("|                                            Simpan Paksa Data                                               |\n");
+        printf("==============================================================================================================\n\n");
+        setColor(COLOR_DEFAULT);
+
+        printf("Data telah berhasil disimpan secara paksa. Berikut adalah jumlah data tersimpan saat ini:\n");
+        
+        printf("Jumlah Dosen                : %d\n", dataSettings->structSize_Dosen);
+        printf("Jumlah Mahasiswa            : %d\n", dataSettings->structSize_Mahasiswa);
+        printf("Jumlah Mata Kuliah          : %d\n", dataSettings->structSize_Matkul);
+        printf("Jumlah Peserta Kuliah       : %d\n\n", dataSettings->structSize_PesertaKuliah);
+
+        printf("Silakan tekan 1 untuk kembali ke menu awal: ");
+        scanf("%d", &operation);
+    }
+    
+    return PROCCESS_SUCCESS;
+}
