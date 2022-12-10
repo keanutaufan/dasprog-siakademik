@@ -7,7 +7,6 @@
 #include "include/Scene.h"
 #include "include/ErrorList.h"
 
-#include <string.h>
 
 int main() {
     DataSettings dataSettings;
@@ -171,38 +170,6 @@ int main() {
             invalidSelection = 1;
         }
     }
-    
-
-    // tabulateDosen(dataDosen, &dataSettings);
-    // printf("\n");
-    // tabulateMahasiswa(dataMahasiswa, &dataSettings);
-    // printf("\n");
-    // tabulateMatkul(dataMatkul, &dataSettings);
-    // printf("\n");
-    // tabulatePesertaKuliah(dataPesertaKuliah, &dataSettings, dataMatkul, dataDosen, dataMahasiswa);
-    // printf("\n");
-
-    // printf("PES KUL: %d\n", dataSettings.structSize_PesertaKuliah);
-    // printf("\n");
-
-    // int deletePos = searchPesertaKuliah(dataPesertaKuliah, &dataSettings, "IF184101", "196005271987011001", "5025221002");
-    // deletePesertaKuliah(&dataPesertaKuliah, &dataSettings, deletePos);
-    // printf("DEL POS:%d \n", deletePos);
-    // readjustPesertaKuliah(dataPesertaKuliah, &dataSettings, dataMatkul, dataDosen, dataMahasiswa);
-
-    // inputNilai(dataPesertaKuliah, &dataSettings, 0, 100, 50);
-    // tabulatePesertaKuliah(dataPesertaKuliah, &dataSettings, dataMatkul, dataDosen, dataMahasiswa);
-    // printf("\n");
-
-    // deletePos = searchMahasiswa(dataMahasiswa, &dataSettings, "5025221042");
-    // deleteMahasiswa(&dataMahasiswa, &dataSettings, deletePos);
-    // readjustPesertaKuliah(dataPesertaKuliah, &dataSettings, dataMatkul, dataDosen, dataMahasiswa);
-
-    // printf("\n");
-    // tabulatePesertaKuliah(dataPesertaKuliah, &dataSettings, dataMatkul, dataDosen, dataMahasiswa);
-    // printf("\n");
-
-    // printf("PES KUL: %d\n", dataSettings.structSize_PesertaKuliah);
 
     return 0;
 } 
