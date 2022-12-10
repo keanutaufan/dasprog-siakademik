@@ -4,7 +4,7 @@ Aplikasi "Sistem Informasi Akademik" adalah program sederhana berbasis konsol ya
 menerapkan alokasi memori dinamis dan File IO dalam bahasa C untuk membuat program
 basis data dosen, mahasiswa, mata kuliah, dan peserta kuliah.
 
-![Screenshot Main Menu](https://imgur.com/a/Wf6XU4U)
+![Screenshot Main Menu](https://i.imgur.com/rRN7gJ2.png)
 
 ## Key Features
 
