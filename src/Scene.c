@@ -1450,3 +1450,38 @@ int sceneSimpanPaksaData(DataSettings *dataSettings) {
     
     return PROCCESS_SUCCESS;
 }
+
+int exitApp(void) {
+    int operation = 0, invalidSelection = 0;
+    while (1) {
+        clearScreen();
+        setColor(COLOR_CYAN);
+        printf("==============================================================================================================\n");
+        printf("|                                               Keluar Aplikasi                                              |\n");
+        printf("==============================================================================================================\n\n");
+        setColor(COLOR_DEFAULT);
+
+        printf("Yakin ingin keluar aplikasi?\n");
+        
+        if (invalidSelection) {
+            setColor(COLOR_RED);
+            printf("MOHON HANYA MEMASUKKAN ANGKA YANG VALID!\n");
+            setColor(COLOR_DEFAULT);
+            invalidSelection = 0;
+        }
+
+        printf("Tekan (1) untuk keluar atau (0) untuk batal: ");
+        scanf("%d", &operation);
+        if (operation == 1) {
+            return PROCCESS_SUCCESS;
+        }
+        else if (operation == 0) {
+            return PROCCESS_CANCELLED;
+        }
+        else {
+            invalidSelection = 1;
+        }
+    }
+
+    return PROCCESS_CANCELLED;
+}

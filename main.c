@@ -5,6 +5,7 @@
 #include "include/Debug.h"
 #include "include/Storage.h"
 #include "include/Scene.h"
+#include "include/ErrorList.h"
 
 #include <string.h>
 
@@ -158,7 +159,11 @@ int main() {
 
         // (16) Keluar
         else if (menuSelection == 17) {
-            
+            if (exitApp() == PROCCESS_SUCCESS) {
+                clearScreen();
+                printf("Terima kasih telah menggunakan aplikasi sistem informasi akademik!\n");
+                break;
+            }
         }
 
         // Default case
