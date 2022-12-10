@@ -123,7 +123,9 @@ int main() {
 
         // (12) Hapus Data Peserta Kuliah
         else if (menuSelection == 12) {
-
+            sceneDeleteDataPesertaKuliah(&dataPesertaKuliah, &dataSettings, dataMatkul, dataDosen, dataMahasiswa);
+            saveSettings("bin/d_settings.dat", &dataSettings);
+            saveData("bin/d_pesertakuliah.dat", dataPesertaKuliah, sizeof(PesertaKuliah), dataSettings.structSize_PesertaKuliah);            
         }
 
         // (13) Input Nilai Peserta Kuliah

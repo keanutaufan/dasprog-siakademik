@@ -1196,3 +1196,210 @@ int sceneDeleteDataMatkul(Matkul **dataMatkul, DataSettings *dataSettings) {
 
     return PROCCESS_SUCCESS;
 }
+
+int sceneDeleteDataPesertaKuliah(PesertaKuliah **dataPesertaKuliah, DataSettings *dataSettings, Matkul *matkul, Dosen *dosen, Mahasiswa *peserta) {
+    int deletePosition, operation, operationCancelled;
+    char bufferKode[10];
+    char bufferNIP[30];
+    char bufferNRP[30];
+    int matkulPosition, dosenPosition, mahasiswaPosition;
+    while (1) {
+        clearScreen();
+        setColor(COLOR_CYAN);
+        printf("==============================================================================================================\n");
+        printf("|                                           Hapus Data Peserta Kuliah                                        |\n");
+        printf("==============================================================================================================\n\n");
+        setColor(COLOR_DEFAULT);
+
+        fflush(stdin);
+        printf("Kode Mata Kuliah            : ");
+        fgets(bufferKode, 10, stdin);
+        // Replace \n picked by fgets with null terminator 
+        if (strlen(bufferKode) > 0) {
+            bufferKode[strlen(bufferKode)-1] = '\0';
+        }
+
+        fflush(stdin);
+        printf("NIP Dosen Pengampu          : ");
+        fgets(bufferNIP, 20, stdin);
+        // Replace \n picked by fgets with null terminator
+        if (strlen(bufferNIP) > 0) {
+            bufferNIP[strlen(bufferNIP)-1] = '\0';
+        }
+
+        fflush(stdin);
+        printf("NRP Peserta Kuliah          : ");
+        fgets(bufferNRP, 20, stdin);
+        // Replace \n picked by fgets with null terminator
+        if (strlen(bufferNRP) > 0) {
+            bufferNRP[strlen(bufferNRP)-1] = '\0';
+        }
+        fflush(stdin);
+
+        clearScreen();
+        setColor(COLOR_CYAN);
+        printf("==============================================================================================================\n");
+        printf("|                                           Hapus Data Peserta Kuliah                                        |\n");
+        printf("==============================================================================================================\n\n");
+        setColor(COLOR_DEFAULT);
+
+        matkulPosition = searchMatkul(matkul, dataSettings, bufferKode);
+        dosenPosition = searchDosen(dosen, dataSettings, bufferNIP);
+        mahasiswaPosition = searchMahasiswa(peserta, dataSettings, bufferNRP);
+        deletePosition = searchPesertaKuliah(*dataPesertaKuliah, dataSettings, bufferKode, bufferNIP, bufferNRP);
+        if (matkulPosition == NOT_FOUND || dosenPosition == NOT_FOUND || mahasiswaPosition == NOT_FOUND) {
+            setColor(COLOR_RED);
+            printf("GAGAL!\n");
+            printf("Anda berusaha menghapus data yang belum terdaftar dalam sistem: \n\n");
+            setColor(COLOR_DEFAULT);
+
+            printf("Kode Mata Kuliah        : %s\n", bufferKode);
+            if (matkulPosition == NOT_FOUND) {
+                printf("Nama Mata Kuliah        : %sTIDAK DITEMUKAN%s\n", COLOR_RED, COLOR_DEFAULT);
+                printf("Bobot SKS               : %sTIDAK DITEMUKAN%s\n", COLOR_RED, COLOR_DEFAULT);
+            }
+            else {
+                printf("Nama Mata Kuliah        : %s\n", matkul[matkulPosition].nama);
+                printf("Bobot SKS               : %d\n", matkul[matkulPosition].sks);
+            }
+
+            printf("NIP Dosen Pengampu      : %s\n", bufferNIP);
+            if (dosenPosition == NOT_FOUND) {
+                printf("Nama Dosen Pengampu     : %sTIDAK DITEMUKAN%s\n", COLOR_RED, COLOR_DEFAULT);
+            }
+            else {
+                printf("Nama Dosen Pengampu     : %s\n", dosen[dosenPosition].nama);
+            }
+
+
+            printf("NRP Peserta Kuliah      : %s\n", bufferNRP);
+            if (mahasiswaPosition == NOT_FOUND) {
+                printf("Nama Peserta Kuliah     : %sTIDAK DITEMUKAN%s\n", COLOR_RED, COLOR_DEFAULT);
+            }
+            else {
+                printf("Nama Peserta Kuliah     : %s\n", peserta[mahasiswaPosition].nama);
+            }
+
+            printf("\nPeriksa kembali data Anda dan tekan (1) untuk mencoba ulang\n");
+            printf("atau tekan selain (1) untuk kembali ke menu awal\n");
+            printf("Pilihan Anda: ");
+            scanf("%d", &operation);
+            if (operation == 1) {
+                continue;
+            }
+            else {
+                break;
+            }
+        }
+
+        if (deletePosition == NOT_FOUND) {
+            setColor(COLOR_RED);
+            printf("GAGAL!\n");
+            printf("Peserta dengan data dibawah belum terdaftar pada mata kuliah yang ditentukan: \n\n");
+            setColor(COLOR_DEFAULT);
+            printf("Kode Mata Kuliah        : %s\n", bufferKode);
+            printf("Nama Mata Kuliah        : %s\n", matkul[matkulPosition].nama);
+            printf("Bobot SKS               : %d\n", matkul[matkulPosition].sks);
+            printf("NIP Dosen Pengampu      : %s\n", bufferNIP);
+            printf("Nama Dosen Pengampu     : %s\n", dosen[dosenPosition].nama);
+            printf("NRP Peserta Kuliah      : %s\n", peserta[mahasiswaPosition].NRP);
+            printf("Nama Peserta Kuliah     : %s\n", peserta[mahasiswaPosition].nama);
+            printf("Peserta kuliah tidak dapat dihapus jika tidak terdaftar!\n\n");
+            
+            printf("Tekan (1) untuk mencoba ulang proses penghapusan data atau tekan angka selain (1)\n");
+            printf("untuk membatalkan penghapusan data dan kembali ke menu awal.\n");
+            printf("Pilihan Anda: ");
+            scanf("%d", &operation);
+            if (operation == 1) {
+                continue;
+            }
+            else {
+                break;
+            }
+        }
+        else {
+            printf("Berikut adalah rincian data peserta kuliah yang akan dihapus: \n\n");
+            printf("Kode Mata Kuliah        : %s\n", (*dataPesertaKuliah)[deletePosition].matkul->kode);
+            printf("Nama Mata Kuliah        : %s\n", (*dataPesertaKuliah)[deletePosition].matkul->nama);
+            printf("Bobot SKS               : %d\n", (*dataPesertaKuliah)[deletePosition].matkul->sks);
+            printf("NIP Dosen Pengampu      : %s\n", (*dataPesertaKuliah)[deletePosition].dosen->NIP);
+            printf("Nama Dosen Pengampu     : %s\n", (*dataPesertaKuliah)[deletePosition].dosen->nama);
+            printf("NRP Peserta Kuliah      : %s\n", (*dataPesertaKuliah)[deletePosition].peserta->NRP);
+            printf("Nama Peserta Kuliah     : %s\n", (*dataPesertaKuliah)[deletePosition].peserta->nama);
+
+            if ((*dataPesertaKuliah[deletePosition]).uts == SCORE_EMPTY) {
+                printf("Nilai UTS               : Belum diinput\n");
+            }
+            else {
+                printf("Nilai UTS               : %d\n", (*dataPesertaKuliah)[deletePosition].uts);
+            }
+
+            if ((*dataPesertaKuliah[deletePosition]).uas == SCORE_EMPTY) {
+                printf("Nilai UAS               : Belum diinput\n");
+            }
+            else {
+                printf("Nilai UAS               : %d\n", (*dataPesertaKuliah)[deletePosition].uas);
+            }
+
+            if ((*dataPesertaKuliah[deletePosition]).rerata == AVG_EMPTY) {
+                printf("Nilai Rata-Rata         : Belum diinput\n");
+            }
+            else {
+                printf("Nilai Rata-Rata         : %.2f\n", (*dataPesertaKuliah)[deletePosition].rerata);
+            }
+
+            printf("Grade                   : %s\n\n", (*dataPesertaKuliah)[deletePosition].grade);
+
+            setColor(COLOR_RED);
+            printf("OPERASI PENGHAPUSAN DATA YANG TELAH DILAKUKAN TIDAK DAPAT DIBATALKAN\n\n");
+            setColor(COLOR_DEFAULT);
+        }
+
+        printf("Periksa kembali data dan tekan (1) untuk melanjutkan penghapusan data\n");
+        printf("atau tekan angka selain (1) untuk membatalkan penghapusan data\n");
+        printf("Pilihan Anda: ");
+        scanf("%d", &operation);
+
+        if (operation == 1) {
+            deletePesertaKuliah(dataPesertaKuliah, dataSettings, deletePosition);
+            operationCancelled = 0;
+        }
+        else {
+            operationCancelled = 1;
+        }
+
+        clearScreen();
+        setColor(COLOR_CYAN);
+        printf("==============================================================================================================\n");
+        printf("|                                           Hapus Data Peserta Kuliah                                        |\n");
+        printf("==============================================================================================================\n\n");
+        setColor(COLOR_DEFAULT);
+
+        if (operationCancelled) {
+            printf("Anda telah membatalkan penghapusan data peserta kuliah\n");
+        }
+        else {
+            printf("Berikut adalah rincian data peserta kuliah yang telah berhasil Anda hapus:\n");
+            printf("Kode Mata Kuliah        : %s\n", bufferKode);
+            printf("NIP Dosen Pengampu      : %s\n", bufferNIP);
+            printf("NRP Peserta Kuliah      : %s\n", bufferNRP);
+            setColor(COLOR_RED);
+            printf("OPERASI PENGHAPUSAN DATA YANG TELAH DILAKUKAN TIDAK DAPAT DIBATALKAN\n\n");
+            setColor(COLOR_DEFAULT);
+        }
+
+        printf("Silakan tekan (1) untuk melakukan penghapusan data lagi\n");
+        printf("atau tekan angka selain (1) untuk kembali ke menu utama\n");
+        printf("Pilihan Anda: ");
+        scanf("%d", &operation);
+
+        if (operation == 1) {
+            continue;
+        }
+        else {
+            break;
+        }
+    }
+
+    return PROCCESS_SUCCESS;
+}
