@@ -137,7 +137,7 @@ int main() {
 
         // (14) Informasi Data
         else if (menuSelection == 14) {
-
+            sceneInformasiData(&dataSettings);
         }
 
         // (15) Simpan Paksa Data
