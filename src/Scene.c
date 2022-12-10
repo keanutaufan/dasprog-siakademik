@@ -1451,6 +1451,45 @@ int sceneSimpanPaksaData(DataSettings *dataSettings) {
     return PROCCESS_SUCCESS;
 }
 
+int sceneAppInfo(void) {
+    int operation = 0;
+    while (operation != 1) {
+        clearScreen();
+        setColor(COLOR_CYAN);
+        printf("==============================================================================================================\n");
+        printf("|                                             Informasi Aplikasi                                             |\n");
+        printf("==============================================================================================================\n\n");
+        setColor(COLOR_DEFAULT);
+
+        printf("Aplikasi Sistem Informasi Akademik\n");
+        printf("Author : Keanu F. Taufan (5025221042)\n");
+        printf("Repo   : https://github.com/keanutaufan/dasprog-siakademik/ \n");
+        printf("Versi  : 1.0.0\n\n");
+
+        printf("Program sederhana ini dibuat sebagai proyek akhir sekaligus syarat kelulusan\n");
+        printf("mata kuliah Dasar Pemrograman (IF184101) Institut Teknologi Sepuluh Nopember\n");
+        printf("dengan dosen Bpk. Dwi Sunaryono, S.Kom., M.Kom. pada tahun ajaran 2022/2023.\n\n");
+
+        printf("Beberapa key features dalam program sederhana ini:\n");
+        printf("- Penyimpanan dengan array of struct yang bersifat dinamis\n");
+        printf("- Data yang diinput dan dihapus dapat melakukan self sorting\n");
+        printf("- Data berupa representasi biner array of struct tersimpan dalam database lokal\n");
+        printf("- Belasan menu dengan UI yang sederhana\n");
+        printf("- dan lainnya...\n\n");
+
+        printf("Kode sumber program ini didistribusikan dengan lisensi MIT.\n");
+        printf("Anda dapat menggunakan dan memodifikasi sebgaian maupun keseluruhan program\n");
+        printf("untuk kepentingan apapun dengan atribusi (lihat file LICENSE pada repositori).\n");
+        printf("Jika anda menggunakan kode sumber untuk kepentingan penyelesaian tugas,\n");
+        printf("harap perhatikan ketentuan tugas mengenai penggunaan kode sumber eksternal.\n\n");
+
+        printf("Tekan (1) untuk kembali ke menu awal: ");
+        scanf("%d", &operation);
+    }
+
+    return PROCCESS_SUCCESS; 
+}
+
 int sceneExitApp(void) {
     int operation = 0, invalidSelection = 0;
     while (1) {

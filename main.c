@@ -153,7 +153,7 @@ int main() {
 
         // (16) Informasi Perangkat Lunak
         else if (menuSelection == 16) {
-
+            sceneAppInfo();
         }
 
         // (16) Keluar

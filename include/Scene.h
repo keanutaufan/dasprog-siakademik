@@ -18,4 +18,5 @@ int sceneDeleteDataPesertaKuliah(PesertaKuliah **dataPesertaKuliah, DataSettings
 
 int sceneInformasiData(DataSettings *dataSettings);
 int sceneSimpanPaksaData(DataSettings *dataSettings);
+int sceneAppInfo(void);
 int sceneExitApp(void);
